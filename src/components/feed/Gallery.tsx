@@ -14,18 +14,22 @@ const Gallery = ({ images, postId }: { images: string[]; postId: string }) => {
     <LightGallery
       speed={500}
       plugins={[lgThumbnail, lgZoom]}
-      elementClassNames="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px]"
+      elementClassNames="w-full grid grid-cols-2 md:grid-cols-4 gap-[10px]"
     >
       {images.map((img, i) => {
-        let span = "col-span-3";
+        let span = "col-span-2"; // Default for images with less than 4 images
         if (images.length === 1) {
-          span = "col-span-3";
+          span = "md:col-span-4"; // Span across all columns on medium screens
         } else if (images.length === 2) {
-          span = "col-span-2";
+          span = "col-span-2 md:col-span-2"; // Take up two columns each
         } else if (images.length === 3) {
-          span = i < 2 ? "col-span-2" : "col-span-3";
+          if (i < 2) {
+            span = "col-span-2 md:col-span-2"; // First two images span two columns
+          } else {
+            span = "col-span-2 md:col-span-4"; // Last image spans full row on medium screens
+          }
         } else if (images.length === 4) {
-          span = "col-span-1";
+          span = "col-span-1 md:col-span-1"; // Each image takes one column
         }
 
         return (
@@ -37,7 +41,7 @@ const Gallery = ({ images, postId }: { images: string[]; postId: string }) => {
             <Image
               width={600}
               height={300}
-              alt={`${postId} Image ${i + 1}`} // Updated alt text for clarity
+              alt={`${postId} Image ${i + 1}`}
               src={img}
               className="rounded-[10px] w-full h-full object-cover"
             />

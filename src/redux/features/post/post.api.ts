@@ -1,5 +1,5 @@
 import { api } from "@/redux/api/appSlice";
-import { IPost } from "@/types/post";
+import { IPost, TVoting } from "@/types/post";
 
 const postApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,6 +15,17 @@ const postApi = api.injectEndpoints({
       },
       providesTags: ["post"],
     }),
+    votePost: builder.mutation<
+      { data: IPost },
+      { postId: string; vote: TVoting }
+    >({
+      query: (payload) => {
+        return {
+          url: `/post/vote/${payload.postId}?vote=${payload.vote}`,
+          method: "PATCH",
+        };
+      },
+    }),
   }),
 });
-export const { useGetAllPostQuery } = postApi;
+export const { useGetAllPostQuery,useVotePostMutation } = postApi;
