@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "https://cssicon.space/css/icons.css";
+
+.icon,
+.icon:before,
+.icon:after,
+.icon i,
+.icon i:before,
+.icon i:after {
+  transition: all 0.4s ease;
+}
 
 @layer components {
   .center {

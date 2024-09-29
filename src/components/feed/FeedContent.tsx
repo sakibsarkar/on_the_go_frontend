@@ -1,35 +1,48 @@
 "use client";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useGetAllPostQuery } from "@/redux/features/post/post.api";
-import { IPost } from "@/types/post";
-import { useEffect, useState } from "react";
-import { InView } from "react-intersection-observer";
+import { setPost } from "@/redux/features/post/post.slice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import PostCardSkeleton from "../skeletons/PostCardSkeleton";
-import CreatePost from "./CreatePost";
+import NoPostFound from "./NoPostFound";
 import PostCard from "./PostCard";
 
 const FeedContent = () => {
-  const [page, setPage] = useState(1); // Track current page
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const { data: posts } = useAppSelector((state) => state.post);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+
   const { data, isLoading, isFetching } = useGetAllPostQuery({
-    page,
+    page: searchParams.get("page") || 1,
     limit: 10,
+    categories: searchParams.get("category") || "",
   });
 
   // Fetch posts and append to the list when data changes
   useEffect(() => {
     if (data?.data) {
-      setHasMore(posts.length !== data.totalDoc);
-      setPosts((prevPosts) => [...prevPosts, ...data.data]); // Append new posts
+      dispatch(setPost({ post: data.data, new: false }));
     }
-  }, [data]);
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    // remove all the query params from the url
+    if (searchParams.get("page")) {
+      router.push("/?page=1");
+    }
+  }, []);
 
   // Handler for loading the next page when the last post is in view
-  const handleLoadMore = (inView: boolean) => {
-    if (!hasMore) return;
-    if (inView && !isFetching) {
-      setPage((prevPage) => prevPage + 1); // Load next page when in view
+  const handleLoadMore = () => {
+    if (!isFetching) {
+      const params = new URLSearchParams(searchParams);
+      const page = Number(searchParams.get("page") || 0) || 0;
+      params.set("page", String(page + 1));
+      router.push(`?${params.toString()}`);
     }
   };
 
@@ -42,26 +55,27 @@ const FeedContent = () => {
     </>
   );
 
-  if (isLoading && page === 1) return <div className="w-full">{Skeletons}</div>;
+  if (isLoading) return <div className="w-full">{Skeletons}</div>;
+
+  if (!posts.length && !isFetching) return <NoPostFound />;
+  const more = (data?.totalDoc || 0) > posts.length ? true : false;
 
   return (
-    <ScrollArea className="h-[calc(100vh-200px)]">
-      <CreatePost />
-
-      {posts.map((post, i) => {
-        // For the last post, use the InView component to trigger loading more
-        if (i === posts.length - 1) {
-          return (
-            <InView key={post._id} onChange={handleLoadMore}>
-              <PostCard post={post} />
-            </InView>
-          );
-        }
-        return <PostCard post={post} key={post._id} />;
-      })}
-
-      {isFetching && Skeletons}
-    </ScrollArea>
+    <div>
+      <div className="h-[calc(100vh-200px)] overflow-auto">
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={handleLoadMore}
+          hasMore={more}
+          useWindow={false}
+          loader={Skeletons}
+        >
+          {posts.map((post, i) => {
+            return <PostCard post={post} key={post._id} i={i} />;
+          })}
+        </InfiniteScroll>
+      </div>
+    </div>
   );
 };
 
