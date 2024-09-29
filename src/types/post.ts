@@ -11,9 +11,10 @@ export interface IPost {
   user: TUser;
   upvotes: string[];
   downvotes: string[];
+  upvoteCount: number;
+  downvoteCount: number;
   createdAt: string;
   updatedAt: string;
 }
 
-
-export type TVoting = "upvote" | "downvote"
+export type TVoting = "upvote" | "downvote";

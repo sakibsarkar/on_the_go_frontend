@@ -3,7 +3,10 @@ import { IPost, TVoting } from "@/types/post";
 
 const postApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAllPost: builder.query<{ data: IPost[] }, Record<string, any>>({
+    getAllPost: builder.query<
+      { data: IPost[]; totalDoc: number },
+      Record<string, any>
+    >({
       query: (payload) => {
         const query = Object.keys(payload)
           .map((key) => `${key}=${payload[key]}`)
@@ -28,4 +31,4 @@ const postApi = api.injectEndpoints({
     }),
   }),
 });
-export const { useGetAllPostQuery,useVotePostMutation } = postApi;
+export const { useGetAllPostQuery, useVotePostMutation } = postApi;

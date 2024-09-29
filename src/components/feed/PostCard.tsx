@@ -14,7 +14,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import Gallery from "./Gallery";
-const PostCard = ({ post }: { post: IPost }) => {
+const PostCard = ({ post,  }: { post: IPost }) => {
   const [votePost] = useVotePostMutation();
   const { user } = useAppSelector((state) => state.auth);
   const [votes, setVotes] = useState({
@@ -59,6 +59,7 @@ const PostCard = ({ post }: { post: IPost }) => {
           <AvatarFallback>{post.user?.firstName?.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
+         
           <h3 className="font-semibold">
             {post.user?.firstName} {post.user?.lastName}
           </h3>

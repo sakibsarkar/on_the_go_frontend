@@ -35,7 +35,7 @@ const Gallery = ({ images, postId }: { images: string[]; postId: string }) => {
         return (
           <Link
             href={img}
-            key={img}
+            key={`${postId} Image ${i + 1}`}
             className={`rounded-[10px] w-full aspect-[150/75] ${span}`}
           >
             <Image
