@@ -25,8 +25,6 @@ const CommentDelete = ({ comment }: { comment: IComment }) => {
       const res = await deleteComment(_id);
       const error = res.error as any;
       if (isError || (error && error.status !== 200)) {
-        console.log(res.error);
-
         toast.error("Something went wrong");
       } else {
         toast.success("Comment deleted successfully");

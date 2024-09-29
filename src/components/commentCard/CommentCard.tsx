@@ -3,6 +3,7 @@ import { IComment } from "@/types/comment";
 import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import CommentDelete from "./CommentDelete";
+import CommentUpdate from "./CommentUpdate";
 
 const CommentCard = ({ comment }: { comment: IComment }) => {
   const { comment: commentText, user, createdAt } = comment;
@@ -28,7 +29,7 @@ const CommentCard = ({ comment }: { comment: IComment }) => {
         {auth && auth._id === user._id && (
           <div className="flex items-center justify-start gap-[10px] mt-[10px]">
             <CommentDelete comment={comment} />
-            <button className="hover:underline text-[12px]">Edit</button>
+            <CommentUpdate comment={comment}/>
           </div>
         )}
       </div>

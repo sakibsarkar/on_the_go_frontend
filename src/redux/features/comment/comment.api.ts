@@ -25,14 +25,24 @@ const commentApi = api.injectEndpoints({
       },
       invalidatesTags: ["comment"],
     }),
-    deteComment: builder.mutation<
-      { data: IComment },
-      string
-    >({
+    deteComment: builder.mutation<{ data: IComment }, string>({
       query: (commentId) => {
         return {
           url: `/comment/delete/${commentId}`,
           method: "DELETE",
+        };
+      },
+      invalidatesTags: ["comment"],
+    }),
+    updateComment: builder.mutation<
+      { data: IComment },
+      { commentId: string; comment: string }
+    >({
+      query: ({ commentId, comment }) => {
+        return {
+          url: `/comment/update/${commentId}`,
+          method: "PUT",
+          body: { comment },
         };
       },
       invalidatesTags: ["comment"],
@@ -43,4 +53,5 @@ export const {
   useGetCommentsByPostIdQuery,
   useCreateCommentMutation,
   useDeteCommentMutation,
+  useUpdateCommentMutation,
 } = commentApi;
