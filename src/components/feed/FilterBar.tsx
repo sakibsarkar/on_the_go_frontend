@@ -22,7 +22,7 @@ const FilterBar = () => {
     params.set("page", "1");
     dispatch(setPost({ post: [], new: true }));
     router.push(`?${params.toString()}`);
-  }, [debouncevalue, searchParams, router]);
+  }, [debouncevalue, router]);
 
   return (
     <div className="shrink-0 w-[300px] pr-[10px] flex flex-col gap-[25px]">

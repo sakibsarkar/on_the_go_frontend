@@ -1,19 +1,14 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardFooter } from "@/components/ui/card";
 import { useVotePostMutation } from "@/redux/features/post/post.api";
 import { useAppSelector } from "@/redux/hook";
 import { IPost, TVoting } from "@/types/post";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import Gallery from "./Gallery";
+import PostContent from "./PostContent";
+import PostModal from "./PostModal";
 
 interface IPorps {
   post: IPost;
@@ -58,26 +53,8 @@ const PostCard: React.FC<IPorps> = ({ post, i }) => {
   };
 
   return (
-    <Card key={post._id} className="mb-4">
-      <CardHeader className="flex flex-row items-center">
-        <Avatar className="w-10 h-10 mr-4 border-[1px] border-secondary">
-          <AvatarImage src={post.user?.image} alt={post.title} />
-          <AvatarFallback>{post.user?.firstName?.charAt(0)}</AvatarFallback>
-        </Avatar>
-        <div>
-          {i}
-          <h3 className="font-semibold">
-            {post.user?.firstName} {post.user?.lastName}
-          </h3>
-          <p className="text-sm text-gray-500">{post.createdAt}</p>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-4">{post.content}</p>
-        {post.images.length > 0 && (
-          <Gallery images={post.images} postId={post._id} />
-        )}
-      </CardContent>
+    <Card className="mb-4">
+      <PostContent post={post} />
       <CardFooter className="justify-between">
         <div className="flex items-center space-x-2">
           <Button
@@ -101,6 +78,7 @@ const PostCard: React.FC<IPorps> = ({ post, i }) => {
             DOWNVOTE: {votes.downvotes?.length || 0}
           </Button>
         </div>
+        <PostModal post={post} />
       </CardFooter>
     </Card>
   );

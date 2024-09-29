@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import PostCard from "../PostCard/PostCard";
 import PostCardSkeleton from "../skeletons/PostCardSkeleton";
 import NoPostFound from "./NoPostFound";
-import PostCard from "./PostCard";
 
 const FeedContent = () => {
   const { data: posts } = useAppSelector((state) => state.post);
@@ -62,7 +62,7 @@ const FeedContent = () => {
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
 
   return (
-    <div className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden">
+    <div className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden smoothBar">
       <InfiniteScroll
         pageStart={0}
         loadMore={handleLoadMore}

@@ -13,6 +13,7 @@ export interface IPost {
   downvotes: string[];
   upvoteCount: number;
   downvoteCount: number;
+  commentCount: number;
   createdAt: string;
   updatedAt: string;
 }

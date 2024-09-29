@@ -9,7 +9,13 @@ import LightGallery from "lightgallery/react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Gallery = ({ images, postId }: { images: string[]; postId: string }) => {
+const PostGallery = ({
+  images,
+  postId,
+}: {
+  images: string[];
+  postId: string;
+}) => {
   return (
     <LightGallery
       speed={500}
@@ -52,4 +58,4 @@ const Gallery = ({ images, postId }: { images: string[]; postId: string }) => {
   );
 };
 
-export default Gallery;
+export default PostGallery;
