@@ -24,6 +24,7 @@
     "@stripe/react-stripe-js": "^2.7.3",
     "@stripe/stripe-js": "^4.1.0",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^2.5.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "formik": "^2.4.6",
