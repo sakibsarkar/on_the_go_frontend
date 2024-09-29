@@ -20,6 +20,7 @@ const FeedContent = () => {
     page: searchParams.get("page") || 1,
     limit: 10,
     categories: searchParams.get("category") || "",
+    searchTerm: searchParams.get("searchTerm") || "",
   });
 
   // Fetch posts and append to the list when data changes
@@ -55,26 +56,26 @@ const FeedContent = () => {
     </>
   );
 
-  if (isLoading) return <div className="w-full">{Skeletons}</div>;
+  if (isLoading) return <div className="w-full ">{Skeletons}</div>;
 
   if (!posts.length && !isFetching) return <NoPostFound />;
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
 
   return (
-    <div>
-      <div className="h-[calc(100vh-200px)] overflow-auto">
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={handleLoadMore}
-          hasMore={more}
-          useWindow={false}
-          loader={Skeletons}
-        >
-          {posts.map((post, i) => {
-            return <PostCard post={post} key={post._id} i={i} />;
-          })}
-        </InfiniteScroll>
-      </div>
+    <div className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden">
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={handleLoadMore}
+        hasMore={more}
+        useWindow={false}
+        loader={
+          <div className="w-[400px] lg:w-[700px] xl:w-[900px]">{Skeletons}</div>
+        }
+      >
+        {posts.map((post, i) => {
+          return <PostCard post={post} key={post._id} i={i} />;
+        })}
+      </InfiniteScroll>
     </div>
   );
 };
