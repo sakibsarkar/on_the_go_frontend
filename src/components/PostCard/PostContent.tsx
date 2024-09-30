@@ -3,6 +3,7 @@ import { CardContent, CardHeader } from "@/components/ui/card";
 import { IPost } from "@/types/post";
 import { format } from "date-fns";
 import PostGallery from "./PostGallery";
+import { ProfileHoverCard } from "./ProfileCard";
 const PostContent = ({ post }: { post: IPost }) => {
   return (
     <>
@@ -12,9 +13,7 @@ const PostContent = ({ post }: { post: IPost }) => {
           <AvatarFallback>{post.user?.firstName?.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
-          <h3 className="font-semibold">
-            {post.user?.firstName} {post.user?.lastName}
-          </h3>
+          <ProfileHoverCard user={post.user} />
           <p className="text-sm text-gray-500">
             {format(post.createdAt, "MMM dd, yyyy")}
           </p>

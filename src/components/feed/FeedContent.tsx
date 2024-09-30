@@ -69,7 +69,9 @@ const FeedContent = () => {
         hasMore={more}
         useWindow={false}
         loader={
-          <div className="w-[400px] lg:w-[700px] xl:w-[900px]">{Skeletons}</div>
+          <div className="w-[400px] lg:w-[700px] xl:w-[900px]">
+            <PostCardSkeleton />
+          </div>
         }
       >
         {posts.map((post, i) => {

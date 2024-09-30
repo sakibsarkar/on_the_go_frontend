@@ -47,7 +47,7 @@ const PostGallery = ({
             <Image
               width={600}
               height={300}
-              alt={`${postId} Image ${i + 1}`}
+              alt={`Image ${i + 1}`}
               src={img}
               className="rounded-[10px] w-full h-full object-cover"
             />
