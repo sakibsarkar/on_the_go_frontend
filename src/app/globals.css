@@ -130,3 +130,13 @@
 .avatarGradient {
   background: linear-gradient(169deg, #12ff94 5%, #fecaff 50%, #f0bff1 100%);
 }
+
+.reset-all ul,
+.reset-all li,
+.reset-all h1,
+.reset-all ol,
+.reset-all p {
+  all: revert !important; /* This will unset all inherited styles */
+  margin: 0 !important; /* Reset margins */
+  padding: revert !important; /* Reset padding */
+}

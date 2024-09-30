@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -11,7 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { useCratePostMutation } from "@/redux/features/post/post.api";
 import { useAppSelector } from "@/redux/hook";
+import { IPostCreate } from "@/types/post";
 import { upLoadSingeImage } from "@/utils/uploadSingleImage";
 import { PlusCircle, Upload } from "lucide-react";
 import Image from "next/image";
@@ -19,14 +22,17 @@ import { PrimeReactProvider } from "primereact/api";
 import { Editor } from "primereact/editor";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { toast } from "sonner";
 import CategorySelector from "./CategorySelector";
 
 export default function CreatePostModal() {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState<string[]>([]);
   const [isPremium, setIsPremium] = useState(false);
+
+  const [createPost] = useCratePostMutation();
 
   const [imageLoading, setImageLoading] = useState(false);
 
@@ -44,10 +50,38 @@ export default function CreatePostModal() {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log({ content, images, category, isPremium });
-    setOpen(false);
+  const handleSubmit = async () => {
+    if (!token || !user) return toast.error("no user");
+    if (imageLoading) return;
+    if (!content) {
+      return toast.error("Please write something in content");
+    }
+
+    if (images.length === 0) {
+      return toast.error("Please upload at least one image");
+    }
+
+    if (categories.length === 0) {
+      return toast.error("Please select at least one category");
+    }
+
+    const toastId = toast.loading("Please wait...");
+    try {
+      const payload: IPostCreate = {
+        content,
+        images,
+        categories,
+        premium: isPremium,
+      };
+      await createPost(payload);
+
+      toast.dismiss(toastId);
+      toast.success("Post created successfully");
+      setOpen(false);
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -67,10 +101,7 @@ export default function CreatePostModal() {
         </DialogHeader>
 
         <PrimeReactProvider>
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-4 overflow-auto flex flex-col w-full gap-[15px]"
-          >
+          <div className="space-y-4 overflow-auto flex flex-col w-full gap-[15px]">
             <div className="flex flex-col gap-[10px]">
               <Label htmlFor="content">Your Travel Story</Label>
               <Editor
@@ -79,7 +110,12 @@ export default function CreatePostModal() {
                 onTextChange={(e) => setContent(e.htmlValue || "")}
               />
             </div>
-            <CategorySelector onChange={() => ""} />
+            <CategorySelector
+              onChange={(values) => {
+                const value = values.map((item) => item._id);
+                setCategories(value);
+              }}
+            />
             <div className="flex flex-col gap-[10px]">
               <Label htmlFor="images">Attach Images</Label>
               <div className="flex items-center gap-[10px]">
@@ -115,20 +151,33 @@ export default function CreatePostModal() {
                 </Label>
               </div>
             </div>
-            <div className="flex items-center  gap-[10px]">
-              <Switch
-                id="premium"
-                disabled={true}
-                checked={isPremium}
-                onCheckedChange={setIsPremium}
-              />
-              <Label htmlFor="premium">Mark as Premium Content</Label>
+            <div>
+              <div className="flex items-center  gap-[10px]">
+                <Switch
+                  id="premium"
+                  disabled={!user?.isPremium}
+                  checked={isPremium}
+                  onCheckedChange={setIsPremium}
+                />
+                <Label htmlFor="premium">Mark as Premium Content</Label>
+              </div>
+              {!user?.isPremium && (
+                <span className="text-[12px] ">
+                  * This can be accessed only by verified users
+                </span>
+              )}
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" onClick={handleSubmit}>
               Create Post
             </Button>
-          </form>
+          </div>
         </PrimeReactProvider>
+
+        <DialogFooter>
+          <Button type="button" className="w-full">
+            Cancel
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

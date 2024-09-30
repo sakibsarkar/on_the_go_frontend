@@ -18,6 +18,18 @@ const config = {
       },
     },
     extend: {
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            h1: null, // Removes styles for h1
+            p: null, // Removes styles for p
+            ul: null, // Removes styles for ul
+            li: null, // Removes styles for li
+            ol: null, // Removes styles for li
+            // Add any other tags you want to remove default styles from
+          },
+        },
+      }),
       colors: {
         // ---->
         primaryTxt: "#253D4E",

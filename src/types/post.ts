@@ -1,13 +1,19 @@
 import { ICategories } from "./category";
 import { TUser } from "./user";
 
-export interface IPost {
-  _id: string;
-  title: string;
+interface IPostReqired {
   content: string;
   images: string[];
+  premium: boolean;
+}
+
+export interface IPostCreate extends IPostReqired {
+  categories: string[];
+}
+
+export interface IPost extends IPostReqired {
+  _id: string;
   categories: ICategories[];
-  isPremium: boolean;
   user: TUser;
   upvotes: string[];
   downvotes: string[];

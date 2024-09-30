@@ -9,7 +9,7 @@ const PostContent = ({ post }: { post: IPost }) => {
     <>
       <CardHeader className="flex flex-row items-center">
         <Avatar className="w-10 h-10 mr-4 border-[1px] border-secondary">
-          <AvatarImage src={post.user?.image} alt={post.title} />
+          <AvatarImage src={post.user?.image} alt={post.user?.firstName} />
           <AvatarFallback>{post.user?.firstName?.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
@@ -20,7 +20,10 @@ const PostContent = ({ post }: { post: IPost }) => {
         </div>
       </CardHeader>
       <CardContent>
-        <p className="mb-4">{post.content}</p>
+        <div
+          dangerouslySetInnerHTML={{ __html: post.content }}
+          className="mb-4 reset-all"
+        />
         {post.images.length > 0 && (
           <PostGallery images={post.images} postId={post._id} />
         )}
