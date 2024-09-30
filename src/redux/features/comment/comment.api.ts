@@ -3,10 +3,13 @@ import { IComment } from "@/types/comment";
 
 const commentApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getCommentsByPostId: builder.query<{ data: IComment[] }, string>({
-      query: (postId) => {
+    getCommentsByPostId: builder.query<
+      { data: IComment[]; totalDoc: number },
+      { postId: string; page: number }
+    >({
+      query: ({ postId, page }) => {
         return {
-          url: `/comment/get/${postId}`,
+          url: `/comment/get/${postId}?page=${page}`,
           method: "GET",
         };
       },

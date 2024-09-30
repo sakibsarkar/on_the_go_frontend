@@ -17,6 +17,7 @@ interface IPorps {
 
 const PostCard: React.FC<IPorps> = ({ post, i }) => {
   const [votePost] = useVotePostMutation();
+
   const { user } = useAppSelector((state) => state.auth);
   const [votes, setVotes] = useState({
     upvotes: post.upvotes,
