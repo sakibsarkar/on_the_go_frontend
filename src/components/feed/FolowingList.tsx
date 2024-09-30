@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/redux/hook";
 import { useEffect } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-const FolowingList = () => {
+const FolowingList = ({ heading = true }: { heading?: boolean }) => {
   const { data } = useGetFollowingListQuery(undefined);
 
   const [unFollow, { isLoading }] = useUnFollowMutation();
@@ -26,7 +26,7 @@ const FolowingList = () => {
 
   return (
     <div>
-      <h2 className="font-semibold my-4">Following</h2>
+      {heading ? <h2 className="font-semibold my-4">Following</h2> : ""}
 
       {data?.data?.map(({ user }) => (
         <div key={user._id} className="flex items-center mb-2 w-full">
@@ -52,6 +52,17 @@ const FolowingList = () => {
           </div>
         </div>
       ))}
+
+      {data?.data && data?.data?.length < 1 ? (
+        <div>
+          <p className="text-center text-[17px] font-[700]">No Following</p>
+          <p className="text-center text-[14px]">
+            Explore more content on news feed and follow other to get connected
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

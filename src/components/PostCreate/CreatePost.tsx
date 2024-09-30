@@ -39,7 +39,8 @@ export default function CreatePostModal() {
   const { token, user } = useAppSelector((state) => state.auth);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!token || !user) return;
+    if (!token || !user || imageLoading) return;
+    if (images.length >= 4) return;
     const files = e.target.files;
     if (files && files[0]) {
       const file = files[0];
@@ -129,26 +130,30 @@ export default function CreatePostModal() {
                     className="w-[90px] h-[90px] object-cover rounded-md"
                   />
                 ))}
-                <Input
-                  id="images"
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageUpload}
-                  className="hidden"
-                />
-                <Label
-                  htmlFor="images"
-                  className="flex items-center flex-col justify-center w-[90px] h-[90px] px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer relative"
-                >
-                  <Upload className="w-5 h-5 mr-2" />
-                  Upload Images
-                  {imageLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 w-full h-full center bg-[#0000003d]">
-                      <ImSpinner2 className="animate-spin" />
-                    </div>
-                  )}
-                </Label>
+                {images.length < 4 && (
+                  <>
+                    <Input
+                      id="images"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <Label
+                      htmlFor="images"
+                      className="flex items-center flex-col justify-center w-[90px] h-[90px] px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer relative"
+                    >
+                      <Upload className="w-5 h-5 mr-2" />
+                      Upload Images
+                      {imageLoading && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 w-full h-full center bg-[#0000003d]">
+                          <ImSpinner2 className="animate-spin" />
+                        </div>
+                      )}
+                    </Label>
+                  </>
+                )}
               </div>
             </div>
             <div>

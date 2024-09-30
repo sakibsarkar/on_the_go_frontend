@@ -1,24 +1,34 @@
 "use client";
+import Loader from "@/components/shared/Loader";
 import ProfileSidebar from "@/components/shared/ProfileSidebar";
 import { useAppSelector } from "@/redux/hook";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
-
+import React from "react";
 const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const { token } = useAppSelector((state) => state.auth);
   const router = useRouter();
-  useEffect(() => {
-    if (!token) {
-      return router.push("/");
-    }
-  }, [token, router]);
+  const { isLoading, user, token } = useAppSelector((state) => state.auth);
 
+  if (isLoading) {
+    return <Loader className="!h-screen" />;
+  }
+  if (!user || !token) {
+    Cookies.set("redirect", "/profile");
+    router.push("/");
+
+    return <></>;
+  }
+
+  if (user.role !== "user") {
+    router.push("/profile/settings");
+    return <></>;
+  }
   return (
-    <div className="w-full min-h-screen flex items-start justify-center layout_container py-[50px]">
+    <div className="w-full min-h-screen flex items-start justify-center  py-[50px]">
       <div className="min-h-[400px] overflow-auto flex flex-col md:flex-row items-start justify-start gap-[20px] md:p-[25px] rounded-[10px] shadow-md w-full">
         <ProfileSidebar />
         {children}

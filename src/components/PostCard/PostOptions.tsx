@@ -10,11 +10,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAppSelector } from "@/redux/hook";
 import { IPost } from "@/types/post";
-import { EllipsisVertical, Eye, Pencil, Share2, Trash } from "lucide-react";
+import { EllipsisVertical, Eye, Share2, Trash } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useCopyToClipboard } from "usehooks-ts";
 import DeletePost from "./actions/DeletePost";
-import { useState } from "react";
 const PostOptions = ({ post }: { post: IPost }) => {
   const { user } = useAppSelector((state) => state.auth);
   const isAuthor = user && post.user?._id === user._id;
@@ -54,10 +54,10 @@ const PostOptions = ({ post }: { post: IPost }) => {
             </DropdownMenuItem>
             {isAuthor ? (
               <>
-                <DropdownMenuItem className="flex items-center gap-[5px]">
-                  <Pencil width={15} /> Edit
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-[5px]" onClick={() => setOpenDeleteModal(true)}>
+                <DropdownMenuItem
+                  className="flex items-center gap-[5px]"
+                  onClick={() => setOpenDeleteModal(true)}
+                >
                   <Trash width={15} />
                   Delete
                 </DropdownMenuItem>
@@ -68,7 +68,11 @@ const PostOptions = ({ post }: { post: IPost }) => {
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeletePost id={post._id} isOpen={openDeleteModal} setIsOpen={setOpenDeleteModal}/>
+      <DeletePost
+        id={post._id}
+        isOpen={openDeleteModal}
+        setIsOpen={setOpenDeleteModal}
+      />
     </>
   );
 };
