@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { api } from "../api/appSlice";
 import authReducer from "../features/auth/auth.slice";
+import followersReducer from "../features/follower/follower.slice";
 import postReducer from "../features/post/post.slice";
 
 // Persist configuration
@@ -28,7 +29,8 @@ const persistAuthReducer = persistReducer(
 const store = configureStore({
   reducer: {
     auth: persistAuthReducer,
-    post:postReducer,
+    post: postReducer,
+    followers: followersReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,13 +1,43 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import {
+  useFollowMutation,
+  useUnFollowMutation,
+} from "@/redux/features/follower/follower.api";
+import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types/user";
 import { CalendarDays, UserPlus } from "lucide-react";
+import { ImSpinner2 } from "react-icons/im";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 const ProfileCard = ({ user }: { user: TUser }) => {
+  const [follow, { isError, isLoading }] = useFollowMutation();
+  const [unfollow, { isLoading: isLoadingUnfollow }] = useUnFollowMutation();
+  const { user: auth } = useAppSelector((state) => state.auth);
+
+  const following = useAppSelector((state) => state.followers.following);
+
+  const isFollowing = following.find(({ user: fol }) => fol._id === user._id);
+
+  const handleFollow = async () => {
+    if (!auth) return;
+    try {
+      const res = await follow(user._id);
+      const error = res.error as any;
+      if (isError || (error && error.status !== 200)) {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex justify-start space-x-4">
       <Avatar>
@@ -24,10 +54,19 @@ const ProfileCard = ({ user }: { user: TUser }) => {
             Joined December 2021
           </span>
         </div>
-        <Button size="sm">
-          <UserPlus className="mr-2 h-4 w-4" />
-          Follow
-        </Button>
+        {!auth || user._id === auth._id ? (
+          ""
+        ) : (
+          <Button size="sm" onClick={handleFollow}>
+            <UserPlus className="mr-2 h-4 w-4" />
+            {isFollowing ? "Unfollow" : "Follow"}
+            {isLoading || isLoadingUnfollow ? (
+              <ImSpinner2 className="animate-spin" />
+            ) : (
+              ""
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );

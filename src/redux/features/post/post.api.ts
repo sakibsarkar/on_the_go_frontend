@@ -14,6 +14,7 @@ const postApi = api.injectEndpoints({
         return {
           url: `/post/get?${query}`,
           method: "GET",
+          keepUnusedDataFor: 0,
         };
       },
       providesTags: ["post"],
