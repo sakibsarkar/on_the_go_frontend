@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import CategoryFilterBox from "./CategoryFilterBox";
+import FilterPremiumContent from "./FilterPremiumContent";
 
 const FilterBar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -36,6 +37,7 @@ const FilterBar = () => {
         />
       </div>
       <CategoryFilterBox />
+      <FilterPremiumContent />
     </div>
   );
 };

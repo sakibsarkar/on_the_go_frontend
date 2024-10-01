@@ -21,6 +21,7 @@ const FeedContent = () => {
     limit: 10,
     categories: searchParams.get("category") || "",
     searchTerm: searchParams.get("searchTerm") || "",
+    premium: searchParams.get("premium") || "",
   });
 
   // Fetch posts and append to the list when data changes
