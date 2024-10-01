@@ -15,6 +15,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useCopyToClipboard } from "usehooks-ts";
 import DeletePost from "./actions/DeletePost";
+import DownloadPdf from "./actions/DownloadPdf";
 const PostOptions = ({ post }: { post: IPost }) => {
   const { user } = useAppSelector((state) => state.auth);
   const isAuthor = user && post.user?._id === user._id;
@@ -52,6 +53,7 @@ const PostOptions = ({ post }: { post: IPost }) => {
             <DropdownMenuItem className="flex items-center gap-[5px]">
               <Eye width={15} /> View Post
             </DropdownMenuItem>
+            <DownloadPdf id={post._id} />
             {isAuthor ? (
               <>
                 <DropdownMenuItem

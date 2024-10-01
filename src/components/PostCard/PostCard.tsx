@@ -54,7 +54,7 @@ const PostCard: React.FC<IPorps> = ({ post, i }) => {
   };
 
   return (
-    <Card className="mb-4">
+    <Card className="mb-4" id={`post-${post._id}`}>
       <PostContent post={post} />
       <CardFooter className="justify-between">
         <div className="flex items-center space-x-2">
