@@ -22,6 +22,7 @@ const FeedContent = () => {
     categories: searchParams.get("category") || "",
     searchTerm: searchParams.get("searchTerm") || "",
     premium: searchParams.get("premium") || "",
+    sort: searchParams.get("sort") || "",
   });
 
   // Fetch posts and append to the list when data changes
@@ -61,6 +62,7 @@ const FeedContent = () => {
 
   if (!posts.length && !isFetching) return <NoPostFound />;
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
+  
 
   return (
     <div className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden smoothBar">
@@ -76,7 +78,7 @@ const FeedContent = () => {
         }
       >
         {posts.map((post, i) => {
-          return <PostCard post={post} key={post._id} i={i} />;
+          return <PostCard post={post} key={post._id} />;
         })}
       </InfiniteScroll>
     </div>
