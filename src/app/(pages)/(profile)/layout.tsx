@@ -23,10 +23,6 @@ const Layout = ({
     return <></>;
   }
 
-  if (user.role !== "user") {
-    router.push("/profile/settings");
-    return <></>;
-  }
   return (
     <div className="w-full min-h-screen flex items-start justify-center  py-[50px]">
       <div className="min-h-[400px] overflow-auto flex flex-col md:flex-row items-start justify-start gap-[20px] md:p-[25px] rounded-[10px] shadow-md w-full">

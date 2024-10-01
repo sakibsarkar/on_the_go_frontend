@@ -1,4 +1,4 @@
-import { LogOut, Settings, User } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings, User } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -50,13 +50,23 @@ export function AccountPanel() {
             </DropdownMenuItem>
           </Link>
 
-          <Link href="/profile/settings">
+          <Link href="/profile/settings" className="cursor-pointer">
             <DropdownMenuItem>
               <Settings className="mr-2 h-4 w-4" />
 
               <span>Settings</span>
             </DropdownMenuItem>{" "}
           </Link>
+          {user && user.role === "admin" ? (
+            <Link href="/dashboard" className="cursor-pointer">
+              <DropdownMenuItem>
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
+              </DropdownMenuItem>
+            </Link>
+          ) : (
+            ""
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
