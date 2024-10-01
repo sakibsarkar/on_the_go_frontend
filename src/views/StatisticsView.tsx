@@ -3,7 +3,7 @@ import StatisticsHeading from "@/components/sratistics/StatisticsHeading";
 import UserStatistics from "@/components/sratistics/UserStatistics";
 const StatisticsView = () => {
   return (
-    <div className="w-full p-[50px]">
+    <div className="w-full">
       <StatisticsHeading />
       <div className="flex items-center justify-start  gap-[20px]">
         <PaymentStatistics />

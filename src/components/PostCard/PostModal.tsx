@@ -26,12 +26,14 @@ import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
 import { Textarea } from "../ui/textarea";
 import PostContent from "./PostContent";
+import VotePost from "./actions/VotePost";
 
 interface IPorps {
   post: IPost;
+  trigger?: React.ReactNode;
 }
 
-const PostModal: React.FC<IPorps> = ({ post }) => {
+const PostModal: React.FC<IPorps> = ({ post, trigger }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [comments, setComments] = useState<IComment[]>([]);
@@ -130,10 +132,14 @@ const PostModal: React.FC<IPorps> = ({ post }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size={"sm"} variant="ghost">
-          <MessageCircle className="mr-1 h-4 w-4" />
-          Comments: {post.commentCount || 0}
-        </Button>
+        {trigger ? (
+          trigger
+        ) : (
+          <Button size={"sm"} variant="ghost">
+            <MessageCircle className="mr-1 h-4 w-4" />
+            Comments: {post.commentCount || 0}
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[850px] px-[10px]">
         <div className=" h-[80vh] overflow-auto smoothBar w-full">
@@ -149,7 +155,7 @@ const PostModal: React.FC<IPorps> = ({ post }) => {
               <PostContent post={post} />
             </Card>
             <Separator />
-
+            <VotePost post={post} />
             <form className="my-6" onSubmit={handleComment}>
               <div className="flex items-start space-x-3">
                 <Avatar className="w-8 h-8">

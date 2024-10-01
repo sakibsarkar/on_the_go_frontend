@@ -1,11 +1,6 @@
-import React from 'react';
-
-const page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+import CommunityPostView from "@/views/CommunityPostView";
+const Cage = () => {
+  return <CommunityPostView />;
 };
 
-export default page;
+export default Cage;

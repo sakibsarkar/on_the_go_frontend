@@ -16,7 +16,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Sidebar isOpen={isOpen} setIsopen={setIsOpen} />
         <div className="w-full h-full flex-col flex">
           <DashboardHeader isOpen={isOpen} setIsOpen={setIsOpen} />
-          <div className="h-full overflow-auto smoothBar">{children}</div>
+          <div className="h-full overflow-auto smoothBar p-[50px]">
+            {children}
+          </div>
         </div>
       </div>
     </ThemeProvider>
