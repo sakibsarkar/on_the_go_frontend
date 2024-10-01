@@ -19,6 +19,15 @@ const postApi = api.injectEndpoints({
       },
       providesTags: ["post"],
     }),
+    getPostById: builder.query<{ data: IPost }, string>({
+      query: (id) => {
+        return {
+          url: `/post/get/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["post"],
+    }),
     cratePost: builder.mutation<{ data: IPost }, IPostCreate>({
       query: (payload) => {
         return {
@@ -55,5 +64,6 @@ export const {
   useGetAllPostQuery,
   useVotePostMutation,
   useCratePostMutation,
+  useGetPostByIdQuery,
   useDeletePostMutation,
 } = postApi;

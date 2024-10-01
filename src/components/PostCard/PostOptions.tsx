@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from "@/redux/hook";
 import { IPost } from "@/types/post";
 import { EllipsisVertical, Eye, Share2, Trash } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -24,14 +25,13 @@ const PostOptions = ({ post }: { post: IPost }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const handleShare = async () => {
-    const url = window.location.href;
+    const url = window.location.origin;
     await copy(url + "/post/" + post._id);
     toast.success("Shareable Link copied to clipboard");
   };
 
   return (
     <>
-      
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size={"icon"}>
@@ -50,9 +50,11 @@ const PostOptions = ({ post }: { post: IPost }) => {
               Share
             </DropdownMenuItem>
 
-            <DropdownMenuItem className="flex items-center gap-[5px]">
-              <Eye width={15} /> View Post
-            </DropdownMenuItem>
+            <Link href={`/post/${post._id}`}>
+              <DropdownMenuItem className="flex items-center gap-[5px]">
+                <Eye width={15} /> View Post
+              </DropdownMenuItem>
+            </Link>
             <DownloadPdf id={post._id} />
             {isAuthor ? (
               <>
