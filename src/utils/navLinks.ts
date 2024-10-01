@@ -1,15 +1,15 @@
 export const navLinks = [
   {
     path: "/",
-    route: "Home",
+    route: "News feed",
   },
 
   {
-    path: "/templates",
-    route: "Template",
+    path: "/about-us",
+    route: "About Us",
   },
   {
-    path: "/plans",
-    route: "Plans",
+    path: "/contact-us",
+    route: "Contact Us",
   },
 ];
