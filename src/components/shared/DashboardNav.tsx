@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NavItem } from "../routes";
+import { NavItem } from "../../routes";
 import {
   Tooltip,
   TooltipContent,

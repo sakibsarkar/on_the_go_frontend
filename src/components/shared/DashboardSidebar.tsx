@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { SetStateAction, useEffect } from "react";
-import { adminLinks } from "../routes";
+import { adminLinks } from "../../routes";
 import { Button } from "../ui/button";
 import { DashboardNav } from "./DashboardNav";
 

@@ -14,15 +14,15 @@ export const adminLinks: NavItem[] = [
     title: "Dashboard",
   },
   {
-    href: "/dashboard/admin/manage-user",
+    href: "/dashboard/community-post",
     Icon: CiUser,
-    title: "Manage Users",
+    title: "Community Posts",
   },
   {
-    href: "/dashboard/admin/manage-slots",
+    href: "/dashboard/manage-user",
     Icon: CiViewList,
 
-    title: "Manage Slots",
+    title: "Manage Users",
   },
   {
     href: "/dashboard/admin/manage-bookings",

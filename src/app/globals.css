@@ -161,3 +161,9 @@
 .spin_center {
   animation: spin 2s linear infinite;
 }
+
+
+.gridUser_responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
+}
