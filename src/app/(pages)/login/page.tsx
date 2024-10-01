@@ -70,7 +70,7 @@ const Login = () => {
       });
 
       redirect ? Cookies.remove("redirect") : "";
-      router.replace(redirect || "/profile");
+      router.replace(redirect || "/");
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");

@@ -11,9 +11,10 @@ import {
 } from "@/redux/features/follower/follower.api";
 import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types/user";
-import { CalendarDays, UserPlus } from "lucide-react";
+import { BadgeCheck, CalendarDays, UserPlus } from "lucide-react";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "sonner";
+import OntheGoTooltip from "../shared/OntheGoTooltip";
 import { Button } from "../ui/button";
 const ProfileCard = ({ user }: { user: TUser }) => {
   const [follow, { isError, isLoading }] = useFollowMutation();
@@ -45,8 +46,17 @@ const ProfileCard = ({ user }: { user: TUser }) => {
         <AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col gap-[10px]">
-        <h4 className="text-sm font-semibold">
-          {user.firstName} {user.lastName}
+        <h4 className="text-sm font-semibold flex items-center gap-[10px]">
+          <span>
+            {user.firstName} {user.lastName}
+          </span>
+          {user.isPremium ? (
+            <OntheGoTooltip message="Verified user">
+              <BadgeCheck width={20} className="text-primaryMat" />
+            </OntheGoTooltip>
+          ) : (
+            ""
+          )}
         </h4>
         <div className="flex items-center">
           <CalendarDays className="mr-2 h-4 w-4 opacity-70" />{" "}
@@ -76,9 +86,20 @@ export const ProfileHoverCard = ({ user }: { user: TUser }) => {
   return (
     <HoverCard openDelay={300}>
       <HoverCardTrigger asChild>
-        <h3 className="font-semibold hover:underline cursor-pointer">
-          {user?.firstName} {user?.lastName}
-        </h3>
+        <div className="flex items-center gap-[10px]">
+          <h3 className="font-semibold hover:underline cursor-pointer">
+            <span>
+              {user?.firstName} {user?.lastName}
+            </span>
+          </h3>
+          {user.isPremium ? (
+            <OntheGoTooltip message="Verified user">
+              <BadgeCheck width={20} className="text-primaryMat" />
+            </OntheGoTooltip>
+          ) : (
+            ""
+          )}
+        </div>
       </HoverCardTrigger>
       <HoverCardContent className="w-80">
         <ProfileCard user={user} />

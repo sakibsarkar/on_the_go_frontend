@@ -31,7 +31,7 @@ const PostOptions = ({ post }: { post: IPost }) => {
 
   return (
     <>
-      {" "}
+      
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size={"icon"}>

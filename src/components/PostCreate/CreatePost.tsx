@@ -13,15 +13,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useCratePostMutation } from "@/redux/features/post/post.api";
+import { addNewPost } from "@/redux/features/post/post.slice";
 import { useAppSelector } from "@/redux/hook";
 import { IPostCreate } from "@/types/post";
 import { upLoadSingeImage } from "@/utils/uploadSingleImage";
 import { PlusCircle, Upload } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { PrimeReactProvider } from "primereact/api";
 import { Editor } from "primereact/editor";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import CategorySelector from "./CategorySelector";
 
@@ -37,6 +40,9 @@ export default function CreatePostModal() {
   const [imageLoading, setImageLoading] = useState(false);
 
   const { token, user } = useAppSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!token || !user || imageLoading) return;
@@ -52,7 +58,7 @@ export default function CreatePostModal() {
   };
 
   const handleSubmit = async () => {
-    if (!token || !user) return toast.error("no user");
+    if (!token || !user) return toast.error("Login first to create post");
     if (imageLoading) return;
     if (!content) {
       return toast.error("Please write something in content");
@@ -74,10 +80,21 @@ export default function CreatePostModal() {
         categories,
         premium: isPremium,
       };
-      await createPost(payload);
+      const { data } = await createPost(payload);
 
       toast.dismiss(toastId);
       toast.success("Post created successfully");
+      console.log(data);
+
+      if (data && data.data) {
+        const payload = {
+          ...data.data,
+          user,
+        };
+        dispatch(addNewPost(payload));
+      }
+      router.push(`/?page=1`);
+
       setOpen(false);
     } catch (error) {
       toast.dismiss(toastId);

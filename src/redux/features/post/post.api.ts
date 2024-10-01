@@ -19,10 +19,7 @@ const postApi = api.injectEndpoints({
       },
       providesTags: ["post"],
     }),
-    cratePost: builder.mutation<
-      { data: IPost[]; totalDoc: number },
-      IPostCreate
-    >({
+    cratePost: builder.mutation<{ data: IPost }, IPostCreate>({
       query: (payload) => {
         return {
           url: `/post/create`,

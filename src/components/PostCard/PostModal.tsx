@@ -10,6 +10,7 @@ import {
   useCreateCommentMutation,
   useGetCommentsByPostIdQuery,
 } from "@/redux/features/comment/comment.api";
+import { useAppSelector } from "@/redux/hook";
 import { IComment } from "@/types/comment";
 import { IPost } from "@/types/post";
 import { MessageCircle } from "lucide-react";
@@ -34,6 +35,8 @@ const PostModal: React.FC<IPorps> = ({ post }) => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [comments, setComments] = useState<IComment[]>([]);
+
+  const { user } = useAppSelector((state) => state.auth);
 
   const {
     data = { data: [], totalDoc: 0 },
@@ -63,7 +66,13 @@ const PostModal: React.FC<IPorps> = ({ post }) => {
   // Handle new comment creation
   const handleComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!user) {
+      toast.error("Please login to comment");
+      return;
+    }
     const toastId = toast.loading("Please wait");
+
     try {
       const form = e.target as HTMLFormElement;
       const comment = form.comment.value;
@@ -152,6 +161,14 @@ const PostModal: React.FC<IPorps> = ({ post }) => {
                     placeholder="Write a comment..."
                     name="comment"
                     className="w-full min-h-[80px] "
+                    required
+                    onFocus={(e) => {
+                      if (!user) {
+                        toast.error("Please login to comment");
+                        e.target.blur();
+                        return;
+                      }
+                    }}
                   />
                   <Button type="submit" className="mt-2">
                     Post Comment
