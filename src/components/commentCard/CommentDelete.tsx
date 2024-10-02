@@ -13,7 +13,12 @@ import { IComment } from "@/types/comment";
 import { AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-const CommentDelete = ({ comment }: { comment: IComment }) => {
+
+interface IPorps {
+  comment: IComment;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+const CommentDelete: React.FC<IPorps> = ({ comment, setPage }) => {
   const { comment: commentText, _id } = comment;
 
   const [deleteComment, { isError }] = useDeteCommentMutation();
@@ -23,6 +28,7 @@ const CommentDelete = ({ comment }: { comment: IComment }) => {
     const btn = document.getElementById("cancel_comment_dialog");
     try {
       const res = await deleteComment(_id);
+      setPage(1);
       const error = res.error as any;
       if (isError || (error && error.status !== 200)) {
         toast.error("Something went wrong");

@@ -22,7 +22,8 @@ const PremiumAccess = () => {
           },
         });
         const data = await res.json();
-        setIsCapable(data);
+
+        setIsCapable(data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);

@@ -14,7 +14,13 @@ import { Edit2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-const CommentUpdate = ({ comment }: { comment: IComment }) => {
+
+interface IPorps {
+  comment: IComment;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const CommentUpdate: React.FC<IPorps> = ({ comment, setPage }) => {
   const { comment: commentText, _id } = comment;
   const [updateComment, { isError }] = useUpdateCommentMutation();
 
@@ -26,6 +32,7 @@ const CommentUpdate = ({ comment }: { comment: IComment }) => {
     const comment = form.comment.value as string;
     try {
       const res = await updateComment({ comment, commentId: _id });
+      setPage(1);
       const error = res.error as any;
       if (isError || (error && error.status !== 200)) {
         toast.error("Something went wrong");
