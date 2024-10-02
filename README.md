@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# On The Go
+
+## Live link - [On the go](https://onthego-frontend.vercel.app/?searchTerm=&page=1)
+
+## 🔗 Server side repository - [on_the_go_backend](https://github.com/sakibsarkar/on_the_go_backend)
+
+## Introduction
+
+The "Travel Tips & Destination Guides" platform is a Next.js-based community hub tailored for travel enthusiasts, allowing users to connect, share, and explore global travel insights. The platform fosters a social environment where users can contribute personal travel stories, exchange tips, and engage in discussions with fellow travelers. Through user authentication and profile customization, individuals can follow others, save favorite posts, and build a personalized travel experience.
+
+Additionally, the platform offers premium content access with payment integration, unlocking exclusive travel guides, tips, and insider knowledge. By blending user-generated content with rich travel information, the project helps users make well-informed travel decisions, discover hidden gems around the world, and enhance their travel adventures. Whether it's about exploring new destinations or connecting with like-minded travelers, this platform aims to make every trip a memorable experience.
+
+This README file will guide you through the steps required to set up and run the project on your local computer.
+
+## Features
+
+- Api debouncing for the search functionality to reduce the number of API calls
+- Service comparison
+- Upcoming booking countdown
+
+## Technology Stack
+
+- Next JS
+- Typescript
+- Shadcn
+- tailwind CSS
+- Readux toolkit & query
 
 ## Getting Started
 
-First, run the development server:
+To get started with the project, follow the instructions below:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Prerequisites
+
+Make sure you have the following software installed on your machine:
+
+- Git
+- Node.js (v20.9.0 recommended)
+- Yarn or any package installer
+
+### Cloning the Repository
+
+First, clone the repository using the following command:
+
+```
+git clone https://github.com/sakibsarkar/on_the_go_frontend
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installing Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open the project file in terminal and run `yarn install`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+yarn install
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Setting Up Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a .env file in the root directory of the project and add your MongoDB credentials:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+VITE_BASE_API=https://onthego-backend.vercel.app/
+```
 
-## Deploy on Vercel
+### Running the Project
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Once you have set up the environment variables, you can run the project locally.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+yarn dev
+
+```
+
+### Accessing the Project
+
+```
+http://localhost:5173
+```
