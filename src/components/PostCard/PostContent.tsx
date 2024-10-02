@@ -42,6 +42,13 @@ const PostContent = ({ post }: { post: IPost }) => {
           dangerouslySetInnerHTML={{ __html: post.content }}
           className="mb-4 reset-all"
         />
+        <div className="flex justify-start items-center gap-[10px] mb-2">
+          {post.categories?.map(({ label }) => (
+            <Badge key={post._id + "-" + label} variant="outline">
+              {label}
+            </Badge>
+          ))}
+        </div>
         {post.images.length > 0 && (
           <PostGallery images={post.images} postId={post._id} />
         )}
