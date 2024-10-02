@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAppSelector } from "@/redux/hook";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
@@ -19,7 +20,13 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
   return (
     <div className="w-full flex items-center justify-between px-[20px]  py-[10px] border-b-[1px] border-muted shrink-0">
-      <img src="/images/logo.png" className="w-[80px] md:flex hidden" />
+      <Image
+        width={80}
+        height={80}
+        src="/images/logo.png"
+        alt="logo"
+        className="w-[80px] md:flex hidden"
+      />
       <Button
         className="menuBTn flex md:hidden"
         onClick={() => setIsOpen(true)}

@@ -2,11 +2,11 @@
 
 import { useAppSelector } from "@/redux/hook";
 import { navLinks } from "@/utils/navLinks";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountPanel } from "../client/AccountPanel";
 import { LeftSidebar } from "../client/LeftSidebar";
-import { Button } from "../ui/button";
 
 const Header = () => {
   const location = usePathname();
@@ -19,7 +19,13 @@ const Header = () => {
         <div className="flex items-center gap-2">
           <LeftSidebar />
           <Link href={"/"} className="text-lg font-bold">
-            Tienda{" "}
+            <Image
+              width={60}
+              height={60}
+              src="/images/logo.png"
+              alt="logo"
+              className="w-[60px] md:flex hidden"
+            />
           </Link>
         </div>
         <nav className="hidden lg:flex gap-5 items-center">
@@ -37,8 +43,6 @@ const Header = () => {
         </nav>
 
         <div className="flex gap-3 items-center justify-start ">
-          <Button id="create">Create Project</Button>
-
           {user ? (
             <AccountPanel />
           ) : (

@@ -18,7 +18,11 @@ const NoDataFound = () => {
           Lets create a new project to display here!
         </p>
         <div className="mt-6">
-          <Button onClick={handleCreateProject} variant={"outline"}>
+          <Button
+            onClick={handleCreateProject}
+            variant={"outline"}
+            className="bg-primaryMat"
+          >
             Create a new project
           </Button>
         </div>

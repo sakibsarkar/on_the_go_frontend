@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { BsFileEarmarkPost } from "react-icons/bs";
 import { CiUser, CiViewList } from "react-icons/ci";
 import { GrServices } from "react-icons/gr";
 export interface NavItem {
@@ -25,8 +26,8 @@ export const adminLinks: NavItem[] = [
     title: "Manage Users",
   },
   {
-    href: "/dashboard/admin/manage-bookings",
-    Icon: CiUser,
-    title: "Manage Bookings",
+    href: "/dashboard/manage-categories",
+    Icon: BsFileEarmarkPost,
+    title: "Manage Categories",
   },
 ];

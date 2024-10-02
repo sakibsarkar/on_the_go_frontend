@@ -86,7 +86,7 @@ export default function Sidebar({
       <div className="w-full">
         <div className="hidden p-5 pt-10 lg:block">
           <Link href={"/"}>
-            <h3 className="font-[600] text-[20px]">AQUA CLEAN</h3>
+            <h3 className="font-[600] text-[20px]">ON THE GO</h3>
           </Link>
         </div>
 

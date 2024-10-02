@@ -11,6 +11,15 @@ const quickSand = Quicksand({
 export const metadata: Metadata = {
   title: "On the go",
   description: "Travel media",
+
+  openGraph: {
+    title: "On the go",
+    description: "Travel media",
+    url: "https://onthego-frontend.vercel.app/",
+    siteName: "On the go",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -20,6 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/images/logo.png" sizes="any" />
       <body className={quickSand.className}>
         <ProviderContainer>{children}</ProviderContainer>
       </body>

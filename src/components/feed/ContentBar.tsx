@@ -19,7 +19,7 @@ const ContentBar = () => {
       ) : (
         <Button
           variant="outline"
-          className="w-full mb-4"
+          className="w-full mb-4 bg-primaryMat text-white"
           onClick={() => toast.error("Login first to create post")}
         >
           <PlusCircle className="mr-2 h-4 w-4" />

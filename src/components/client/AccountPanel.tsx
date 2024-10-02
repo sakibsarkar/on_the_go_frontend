@@ -43,20 +43,6 @@ export function AccountPanel() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={"/profile"}>
-            <DropdownMenuItem className="cursor-pointer">
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href="/profile/settings" className="cursor-pointer">
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-
-              <span>Settings</span>
-            </DropdownMenuItem>{" "}
-          </Link>
           {user && user.role === "admin" ? (
             <Link href="/dashboard" className="cursor-pointer">
               <DropdownMenuItem>
@@ -65,7 +51,21 @@ export function AccountPanel() {
               </DropdownMenuItem>
             </Link>
           ) : (
-            ""
+            <>
+              <Link href={"/profile"}>
+                <DropdownMenuItem className="cursor-pointer">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/profile/settings" className="cursor-pointer">
+                <DropdownMenuItem>
+                  <Settings className="mr-2 h-4 w-4" />
+
+                  <span>Settings</span>
+                </DropdownMenuItem>
+              </Link>
+            </>
           )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

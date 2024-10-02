@@ -105,9 +105,12 @@ export default function CreatePostModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full mb-4">
+        <Button
+          variant="outline"
+          className="w-full mb-4 bg-primaryMat text-white"
+        >
           <PlusCircle className="mr-2 h-4 w-4" />
-          Create Your Story
+          Create Your Post
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[625px] max-h-[80vh] overflow-auto smoothBar">
