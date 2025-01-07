@@ -1,4 +1,5 @@
 import { ICategories } from "./category";
+import { IReaction } from "./reaction";
 import { TUser } from "./user";
 
 interface IPostReqired {
@@ -17,9 +18,9 @@ export interface IPost extends IPostReqired {
   user: TUser;
   upvotes: string[];
   downvotes: string[];
-  upvoteCount: number;
-  downvoteCount: number;
+  reactionCount: number;
   commentCount: number;
+  reacted?: IReaction;
   createdAt: string;
   updatedAt: string;
 }

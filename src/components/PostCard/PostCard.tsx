@@ -2,7 +2,7 @@ import { Card, CardFooter } from "@/components/ui/card";
 import { IPost } from "@/types/post";
 import PostContent from "./PostContent";
 import PostModal from "./PostModal";
-import VotePost from "./actions/VotePost";
+import PostReaction from "./actions/PostReaction";
 
 interface IPorps {
   post: IPost;
@@ -23,7 +23,8 @@ const PostCard: React.FC<IPorps> = ({
       <CardFooter className="flex flex-col justify-start items-start">
         {showFooterItems ? (
           <div className="flex items-center justify-between w-full">
-            <VotePost post={post} />
+            {/* <VotePost post={post} /> */}
+            <PostReaction post={post} />
             <PostModal post={post} />
           </div>
         ) : (
