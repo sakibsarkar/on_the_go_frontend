@@ -58,21 +58,20 @@ const FeedContent = () => {
     </>
   );
 
-  if (isLoading) return <div className="w-full ">{Skeletons}</div>;
+  if (isLoading) return <div className="w-[680px] shrink-0">{Skeletons}</div>;
 
   if (!posts.length && !isFetching) return <NoPostFound />;
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
-  
 
   return (
-    <div className="h-[calc(100vh-200px)] overflow-y-auto overflow-x-hidden smoothBar">
+    <div className="h-[calc(100vh-200px)] w-[680px] shrink-0 overflow-y-auto overflow-x-hidden smoothBar">
       <InfiniteScroll
         pageStart={0}
         loadMore={handleLoadMore}
         hasMore={more}
         useWindow={false}
         loader={
-          <div className="w-[400px] lg:w-[700px] xl:w-[900px]">
+          <div className="w-full">
             <PostCardSkeleton />
           </div>
         }

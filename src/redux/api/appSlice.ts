@@ -76,6 +76,7 @@ export const api = createApi({
     "follower",
     "statistics",
     "reaction",
+    "group",
   ],
   endpoints: () => ({}),
 });

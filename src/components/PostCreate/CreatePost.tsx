@@ -19,7 +19,7 @@ import { IPostCreate } from "@/types/post";
 import { upLoadSingeImage } from "@/utils/uploadSingleImage";
 import { PlusCircle, Upload } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { PrimeReactProvider } from "primereact/api";
 import { Editor } from "primereact/editor";
 import { useState } from "react";
@@ -28,12 +28,18 @@ import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import CategorySelector from "./CategorySelector";
 
-export default function CreatePostModal() {
+interface IProps {
+  children?: React.ReactNode;
+}
+
+const CreatePostModal: React.FC<IProps> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState("");
   const [images, setImages] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [isPremium, setIsPremium] = useState(false);
+
+  const { groupId } = useParams();
 
   const [createPost] = useCratePostMutation();
 
@@ -79,6 +85,7 @@ export default function CreatePostModal() {
         images,
         categories,
         premium: isPremium,
+        groupId: groupId as string | undefined,
       };
       const { data } = await createPost(payload);
 
@@ -105,17 +112,19 @@ export default function CreatePostModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full mb-4 bg-primaryMat text-white"
-        >
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Create Your Post
-        </Button>
+        {children || (
+          <Button
+            variant="outline"
+            className="w-full mb-4 bg-primaryMat/10 text-primaryMat border-[1px] border-primaryMat/20"
+          >
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Create Your Post
+          </Button>
+        )}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[625px] max-h-[80vh] overflow-auto smoothBar">
+      <DialogContent className="sm:max-w-[625px] lg:max-w-[1000px] xl:max-w-[1200px] max-h-[80vh] overflow-auto smoothBar">
         <DialogHeader>
-          <DialogTitle>Create a New Travel Post</DialogTitle>
+          <DialogTitle>Create Your Post</DialogTitle>
           <DialogDescription>
             Share your travel tips, guides, and stories with the community.
           </DialogDescription>
@@ -168,7 +177,7 @@ export default function CreatePostModal() {
                       Upload Images
                       {imageLoading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 w-full h-full center bg-[#0000003d]">
-                          <ImSpinner2 className="animate-spin" />
+                          <ImSpinner2 className="spinner" />
                         </div>
                       )}
                     </Label>
@@ -206,4 +215,6 @@ export default function CreatePostModal() {
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default CreatePostModal;

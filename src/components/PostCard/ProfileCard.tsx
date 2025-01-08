@@ -71,7 +71,7 @@ const ProfileCard = ({ user }: { user: TUser }) => {
             <UserPlus className="mr-2 h-4 w-4" />
             {isFollowing ? "Unfollow" : "Follow"}
             {isLoading || isLoadingUnfollow ? (
-              <ImSpinner2 className="animate-spin" />
+              <ImSpinner2 className="spinner" />
             ) : (
               ""
             )}
@@ -82,19 +82,29 @@ const ProfileCard = ({ user }: { user: TUser }) => {
   );
 };
 
-export const ProfileHoverCard = ({ user }: { user: TUser }) => {
+export const ProfileHoverCard = ({
+  user,
+  className,
+  badgeWidth = 20,
+}: {
+  user: TUser;
+  badgeWidth?: number;
+  className?: string;
+}) => {
   return (
     <HoverCard openDelay={300}>
       <HoverCardTrigger asChild>
         <div className="flex items-center gap-[10px]">
-          <h3 className="font-semibold hover:underline cursor-pointer">
-            <span>
-              {user?.firstName} {user?.lastName}
-            </span>
+          <h3
+            className={`font-semibold hover:underline cursor-pointer ${
+              className || ""
+            }`}
+          >
+            {user?.firstName} {user?.lastName}
           </h3>
           {user.isPremium ? (
             <OntheGoTooltip message="Verified user">
-              <BadgeCheck width={20} className="text-primaryMat" />
+              <BadgeCheck width={badgeWidth} className="text-primaryMat" />
             </OntheGoTooltip>
           ) : (
             ""

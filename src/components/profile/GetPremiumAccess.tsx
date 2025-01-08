@@ -116,7 +116,7 @@ const GetPremiumAccess = () => {
             className="flex items-center justify-center gap-[5px]"
           >
             Continue to Verification{" "}
-            {isLoading ? <ImSpinner2 className="animate-spin h-4 w-4" /> : ""}
+            {isLoading ? <ImSpinner2 className="spinner h-4 w-4" /> : ""}
           </Button>
         </DialogFooter>
       </DialogContent>

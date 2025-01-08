@@ -29,7 +29,7 @@ const FolowingList = ({ heading = true }: { heading?: boolean }) => {
       {heading ? <h2 className="font-semibold my-4">Following</h2> : ""}
 
       {data?.data?.map(({ user }) => (
-        <div key={user._id} className="flex items-center mb-2 w-full">
+        <div key={user._id} className="flex items-center mb-4 w-full">
           <Avatar className="w-[45px] h-[45px] mr-2">
             <AvatarImage
               src={user.image}
@@ -47,7 +47,7 @@ const FolowingList = ({ heading = true }: { heading?: boolean }) => {
               onClick={() => handleUnFollow(user._id)}
             >
               Unfollow
-              {isLoading ? <ImSpinner2 className="animate-spin" /> : ""}
+              {isLoading ? <ImSpinner2 className="spinner" /> : ""}
             </button>
           </div>
         </div>

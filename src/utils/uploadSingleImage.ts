@@ -13,5 +13,5 @@ export const upLoadSingeImage = async (image: File, token: string) => {
   });
 
   const data = await res.json();
-  return data;
+  return data as { data: string };
 };

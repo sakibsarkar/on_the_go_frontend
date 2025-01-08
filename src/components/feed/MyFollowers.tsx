@@ -20,7 +20,7 @@ const MyFollowers = ({ heading = true }: { heading?: boolean }) => {
       {data?.data?.map(({ follower }) => (
         <div
           key={follower._id}
-          className="flex items-center mb-2 w-full p-[10px] border-[1px] border-input rounded-[8px]"
+          className="flex items-center w-full p-[10px] border-[1px] border-input rounded-[8px]"
         >
           <Avatar className="w-[35px] h-[35px] mr-2">
             <AvatarImage

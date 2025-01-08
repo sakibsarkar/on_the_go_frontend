@@ -1,0 +1,60 @@
+"use client";
+import DisplayGroupPost from "@/components/GroupPost/DisplayGroupPost";
+import ShareGroupPost from "@/components/GroupPost/ShareGroupPost";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAppSelector } from "@/redux/hook";
+import { GlobeIcon, LockIcon } from "lucide-react";
+const GroupPostView = () => {
+  const { group } = useAppSelector((state) => state.group);
+
+  return (
+    <div className="flex items-start justify-start gap-[15px]">
+      <div className="w-full">
+        <ShareGroupPost />
+        <DisplayGroupPost />
+      </div>
+      <div className="space-y-6  bg-white p-[15px] rounded-[18px] w-[600px]">
+        <div>
+          <h2 className="text-lg font-semibold">About this group</h2>
+          <p className="mt-2 text-primaryTxt">{group?.description}</p>
+        </div>
+        <div className="mt-2 flex-col gap-[15px]">
+          <div className="flex items-start justify-start gap-[8px]">
+            {group?.privacy === "private" ? <LockIcon /> : <GlobeIcon />}
+            <p className="text-lg font-semibold">
+              {group?.privacy === "private" ? "Private" : "Public"}
+            </p>
+          </div>
+          <p className="text-muted-foreground text-[14px]">
+            {group?.privacy === "private"
+              ? "This group is private. Only invited members can see the group's posts and other details about the group. but people still find the group and can join."
+              : "This group is public. Anyone can see the group's posts. But you have to be a member to post on this group."}
+          </p>
+        </div>
+        <div className="w-[300px] shrink-0 sticky top-0">
+          <h2 className="text-lg font-semibold">Admin</h2>
+          <div className="mt-2 flex items-center gap-3">
+            <Avatar>
+              <AvatarImage
+                src={group?.owner?.image}
+                alt={`${group?.owner?.firstName} ${group?.owner?.lastName}`}
+              />
+              <AvatarFallback>
+                {group?.owner?.firstName[0]}
+                {group?.owner?.lastName[0]}
+              </AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="font-medium">
+                {group?.owner?.firstName} {group?.owner?.lastName}
+              </p>
+              <p className="text-sm text-muted-foreground">Group Admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GroupPostView;

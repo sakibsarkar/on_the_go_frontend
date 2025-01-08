@@ -1,4 +1,5 @@
 import { ICategories } from "./category";
+import { IGroup } from "./group";
 import { IReaction } from "./reaction";
 import { TUser } from "./user";
 
@@ -10,11 +11,13 @@ interface IPostReqired {
 
 export interface IPostCreate extends IPostReqired {
   categories: string[];
+  groupId?: string;
 }
 
 export interface IPost extends IPostReqired {
   _id: string;
   categories: ICategories[];
+  group?: IGroup;
   user: TUser;
   upvotes: string[];
   downvotes: string[];
