@@ -18,7 +18,7 @@
   }
 
   .layout_container {
-    @apply max-w-[1586px] mx-auto px-[10px] sm:px-[20px] md:px-[80px];
+    @apply max-w-[1800px] mx-auto px-[10px] sm:px-[20px] md:px-[80px];
   }
 }
 
@@ -166,6 +166,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
 }
+.gridGroup_responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+}
 
 .spinner {
   animation: spin 1s linear infinite;
@@ -178,4 +182,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.activeRoute::after {
+  content: "";
+  height: 2px;
+  width: 100%;
+  background: #3bb77e;
+  position: absolute;
+  bottom: -7px;
+  left: 0;
 }

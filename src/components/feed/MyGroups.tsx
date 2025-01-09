@@ -4,15 +4,16 @@ import { UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import SmallGroupCardSkeleton from "../skeletons/SmallGroupCardSkeleton";
 const MyGroups = () => {
   const [query, setQuery] = useState({ page: 1, limit: 5 });
   const { data, isLoading } = useGetUsersGroupsQuery(query);
 
   return (
-    <div className="w-full">
+    <div className="w-full max-h-[350px] overflow-y-auto smoothBar">
       <div className="w-full flex items-start justify-between my-4">
         <h2 className="font-semibold">My Groups</h2>
-        {data?.data.length ? (
+        {!isLoading && data?.data.length ? (
           <button
             onClick={() => setQuery({ ...query, limit: data?.totalDoc || 999 })}
             className="text-primaryMat text-[13px]"
@@ -23,7 +24,7 @@ const MyGroups = () => {
           ""
         )}
       </div>
-      {!isLoading && data?.data?.length ? (
+      {data?.data?.length ? (
         <div className="flex flex-col gap-2">
           {data?.data?.map((group) => (
             <Link
@@ -45,6 +46,13 @@ const MyGroups = () => {
               </span>
             </Link>
           ))}
+        </div>
+      ) : isLoading ? (
+        <div className="flex flex-col gap-2 bg-white p-[15px]">
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
         </div>
       ) : (
         <Link

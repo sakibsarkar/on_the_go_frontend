@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import PostCard from "../PostCard/PostCard";
+import PostCreateBox from "../shared/PostCreateBox";
 import PostCardSkeleton from "../skeletons/PostCardSkeleton";
 import NoPostFound from "./NoPostFound";
 
@@ -15,6 +16,7 @@ const FeedContent = () => {
   const router = useRouter();
 
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   const { data, isLoading, isFetching } = useGetAllPostQuery({
     page: searchParams.get("page") || 1,
@@ -58,13 +60,22 @@ const FeedContent = () => {
     </>
   );
 
-  if (isLoading) return <div className="w-[680px] shrink-0">{Skeletons}</div>;
+  if (isLoading)
+    return (
+      <div className="w-[680px] shrink-0 h-full overflow-y-auto overflow-x-hidden smoothBar">
+        {Skeletons}
+      </div>
+    );
 
   if (!posts.length && !isFetching) return <NoPostFound />;
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
 
   return (
-    <div className="h-[calc(100vh-200px)] w-[680px] shrink-0 overflow-y-auto overflow-x-hidden smoothBar">
+    <div className="h-full w-[680px] shrink-0 overflow-y-auto overflow-x-hidden smoothBar">
+      <div className="mb-[25px]">
+        <PostCreateBox />
+      </div>
+
       <InfiniteScroll
         pageStart={0}
         loadMore={handleLoadMore}

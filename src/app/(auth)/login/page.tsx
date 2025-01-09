@@ -1,5 +1,6 @@
 "use client";
 
+import { loginCredentials } from "@/lib/credentials";
 import { useLoginUserMutation } from "@/redux/features/auth/auth.api";
 import { setToken, setUser } from "@/redux/features/auth/auth.slice";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -81,7 +82,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-[15px]">
-      <div className="flex items-center justify-center gap-[50px]">
+      <div className="flex items-center justify-center gap-[50px] p-[15px] bg-white">
         <div className="w-[500px] h-[450px] overflow-hidden rounded-[15px]">
           <Image
             src={"/images/authLady.png"}
@@ -91,14 +92,14 @@ const Login = () => {
             height={350}
           />
         </div>
-        <div className="bg-white max-w-[450px]">
+        <div className="max-w-[450px]">
           <h2 className="font-bold mb-6 text-left text-[35px]">Login</h2>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleLogin}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, setFieldValue }) => (
               <Form>
                 <div className="mb-4">
                   <label className="block text-primaryTxt text-[18px] font-[600]">
@@ -129,6 +130,27 @@ const Login = () => {
                     component="div"
                     className="text-red-500 text-sm"
                   />
+                </div>
+                <div className="flex flex-col gap-[5px]">
+                  <h3 className="block text-primaryTxt text-[18px] font-[600]">
+                    Quick Login{" "}
+                  </h3>
+                  <div className="flex items-center justify-start  gap-[10px] flex-wrap mb-[20px]">
+                    {loginCredentials.map(({ email, password, label }, i) => (
+                      <button
+                        key={"login" + i}
+                        type="button"
+                        className="w-fit bg-primaryMat/10 border-[1px] border-primaryMat/10 font-[700] text-primaryMat rounded-full px-[15px] py-[5px] text-[12px] active:scale-[0.8] hover:bg-primaryMat hover:text-white"
+                        style={{ transition: "0.3s" }}
+                        onClick={() => {
+                          setFieldValue("email", email);
+                          setFieldValue("password", password);
+                        }}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <button

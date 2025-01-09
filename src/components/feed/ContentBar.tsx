@@ -12,7 +12,7 @@ const ContentBar = () => {
   const { user } = useAppSelector((state) => state.auth);
 
   return (
-    <div className="w-full bg-white p-4 hidden lg:block">
+    <div className="w-[350px] h-full  p-4 hidden lg:block">
       <h2 className="font-semibold mb-4">Seemed Stories</h2>
 
       {user ? (

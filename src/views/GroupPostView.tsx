@@ -1,6 +1,6 @@
 "use client";
 import DisplayGroupPost from "@/components/GroupPost/DisplayGroupPost";
-import ShareGroupPost from "@/components/GroupPost/ShareGroupPost";
+import PostCreateBox from "@/components/shared/PostCreateBox";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/redux/hook";
 import { GlobeIcon, LockIcon } from "lucide-react";
@@ -10,7 +10,7 @@ const GroupPostView = () => {
   return (
     <div className="flex items-start justify-start gap-[15px]">
       <div className="w-full">
-        <ShareGroupPost />
+        <PostCreateBox />
         <DisplayGroupPost />
       </div>
       <div className="space-y-6  bg-white p-[15px] rounded-[18px] w-[600px]">

@@ -26,7 +26,7 @@ import { Separator } from "../ui/separator";
 import { Skeleton } from "../ui/skeleton";
 import { Textarea } from "../ui/textarea";
 import PostContent from "./PostContent";
-import VotePost from "./actions/VotePost";
+import PostReaction from "./actions/PostReaction";
 
 interface IPorps {
   post: IPost;
@@ -128,8 +128,8 @@ const PostModal: React.FC<IPorps> = ({ post, trigger }) => {
           <Card>
             <PostContent post={post} />
           </Card>
-          <Separator />
-          <VotePost post={post} />
+          <Separator className="my-[20px]" />
+          <PostReaction post={post} />
           <form className="my-6" onSubmit={handleComment}>
             <div className="flex items-start space-x-3">
               <Avatar className="w-8 h-8">

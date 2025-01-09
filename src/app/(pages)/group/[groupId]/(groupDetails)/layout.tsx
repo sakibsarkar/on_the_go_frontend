@@ -109,19 +109,22 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
           <div className=" flex items-center justify-start mt-[25px] h-[40px] bg-primaryMat/10 px-3 rounded-[8px]">
             {group?.privacy === "public" ? (
               <>
-                {groupNavigation.map((item, i) => (
-                  <Link
-                    key={i + item.path}
-                    href={`/group/${groupId}/${item.path}`}
-                    className={`px-[15px] h-full center relative ${
-                      path === item.path
-                        ? "text-primaryMat bg-primaryMat/10 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primaryMat"
-                        : ""
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {groupNavigation.map((item, i) => {
+                  const url = `/group/${groupId}/${item.path}`;
+                  return (
+                    <Link
+                      key={i + item.path}
+                      href={url}
+                      className={`px-[25px] py-[8px] relative rounded-[0px] ${
+                        path === url
+                          ? "text-primaryMat after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primaryMat"
+                          : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </>
             ) : member ? (
               <>
@@ -143,7 +146,25 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
                 })}
               </>
             ) : (
-              <>{/* all disable */}</>
+              <>
+                {groupNavigation.map((item, i) => {
+                  const url = `/group/${groupId}/${item.path}`;
+                  return (
+                    <Link
+                      key={i + item.path}
+                      href={url}
+                      onClick={(e) => e.preventDefault()}
+                      className={`px-[25px] py-[8px] relative rounded-[0px] cursor-not-allowed ${
+                        path === url
+                          ? "text-primaryMat after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primaryMat"
+                          : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </>
             )}
           </div>
           {/* <div className="space-y-4">

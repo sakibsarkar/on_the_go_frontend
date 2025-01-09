@@ -2,47 +2,42 @@
 
 import { useAppSelector } from "@/redux/hook";
 import { navLinks } from "@/utils/navLinks";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AccountPanel } from "../client/AccountPanel";
-import { LeftSidebar } from "../client/LeftSidebar";
+import HeaderSearchBar from "./HeaderSearchBar";
+import OntheGoTooltip from "./OntheGoTooltip";
 
 const Header = () => {
-  const location = usePathname();
+  const path = usePathname();
 
   const { user, isLoading, token } = useAppSelector((state) => state.auth);
 
   return (
-    <header className="py-5 lg:py-7 border-b sticky top-0 z-50 bg-white ">
-      <div className="layout_container flex justify-between gap-4 items-center">
-        <div className="flex items-center gap-2">
-          <LeftSidebar />
-          <Link href={"/"} className="text-lg font-bold">
-            <Image
-              width={60}
-              height={60}
-              src="/images/logo.png"
-              alt="logo"
-              className="w-[60px] md:flex hidden"
-            />
-          </Link>
-        </div>
-        <nav className="hidden lg:flex gap-5 items-center">
-          {navLinks.map((nav) => (
-            <Link
-              key={nav.path}
-              href={nav.path}
-              className={`text-slate-700 hover:text-green-500 ${
-                location === nav.path && "font-extrabold text-green-600"
-              }`}
-            >
-              {nav.route}
-            </Link>
-          ))}
+    <header className="py-[5px] border-b sticky top-0 z-50 bg-white ">
+      <div className="layout_container flex justify-between gap-4 items-center relative">
+        <HeaderSearchBar />
+        <nav className="hidden lg:flex w-full relative z-[1] items-center justify-center">
+          {navLinks.map((nav) => {
+            const Icon = nav.Icon;
+            return (
+              <OntheGoTooltip delay={400} message={nav.label} key={nav.path}>
+                <Link
+                  href={nav.path}
+                  className={`px-[35px] h-[50px] center relative ${
+                    nav.path === path
+                      ? "activeRoute text-primaryMat"
+                      : "hover:bg-primaryMat/10 "
+                  }`}
+                >
+                  <Icon className={`size-6 flex-none`} />
+                </Link>
+              </OntheGoTooltip>
+            );
+          })}
         </nav>
 
-        <div className="flex gap-3 items-center justify-start ">
+        <div className="flex gap-3 items-center justify-start absolute right-[80px] z-[2]">
           {user ? (
             <AccountPanel />
           ) : (

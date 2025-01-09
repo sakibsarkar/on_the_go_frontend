@@ -38,7 +38,7 @@ export function LeftSidebar() {
                     location === nav.path && "font-extrabold text-green-600"
                   }`}
                 >
-                  {nav.route}
+                  {nav.label}
                 </Link>
               </SheetClose>
             ))}

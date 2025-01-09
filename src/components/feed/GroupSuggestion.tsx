@@ -2,11 +2,12 @@
 import { useGetGroupSuggesionsQuery } from "@/redux/features/group/group.api";
 import Image from "next/image";
 import Link from "next/link";
+import SmallGroupCardSkeleton from "../skeletons/SmallGroupCardSkeleton";
 const GroupSuggestion = () => {
   const { data, isLoading } = useGetGroupSuggesionsQuery({ page: 1, limit: 5 });
 
   return (
-    <div className="w-full">
+    <div className="w-full max-h-[350px] overflow-y-auto smoothBar">
       <div className="flex items-start justify-between">
         <h2 className="font-semibold">Groups you may like</h2>
         <Link
@@ -16,7 +17,7 @@ const GroupSuggestion = () => {
           View more
         </Link>
       </div>
-      {!isLoading && data?.data?.length ? (
+      {data?.data?.length ? (
         <div className="flex flex-col gap-2 mt-[15px]">
           {data?.data?.map((group) => (
             <Link
@@ -39,8 +40,15 @@ const GroupSuggestion = () => {
             </Link>
           ))}
         </div>
+      ) : isLoading ? (
+        <div className="flex flex-col gap-2 bg-white p-[15px]">
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
+          <SmallGroupCardSkeleton />
+        </div>
       ) : (
-        ""
+        "You don't have any groups to join 🔥"
       )}
     </div>
   );
