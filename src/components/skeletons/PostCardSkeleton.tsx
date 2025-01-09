@@ -7,7 +7,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 const PostCardSkeleton = () => {
   return (
-    <Card className="mb-4 max-w-[1041px] w-full h-[200px]">
+    <Card className="mb-4 w-full h-[200px]">
       <CardHeader className="flex flex-row items-center space-x-4">
         <Skeleton className="h-12 w-12 rounded-full" />
         <div className="space-y-2">

@@ -5,20 +5,17 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import {
-  useFollowMutation,
-  useUnFollowMutation,
-} from "@/redux/features/follower/follower.api";
+import { useFollowMutation } from "@/redux/features/follower/follower.api";
 import { useAppSelector } from "@/redux/hook";
 import { TUser } from "@/types/user";
 import { BadgeCheck, CalendarDays, UserPlus } from "lucide-react";
+import Link from "next/link";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "sonner";
 import OntheGoTooltip from "../shared/OntheGoTooltip";
 import { Button } from "../ui/button";
 const ProfileCard = ({ user }: { user: TUser }) => {
   const [follow, { isError, isLoading }] = useFollowMutation();
-  const [unfollow, { isLoading: isLoadingUnfollow }] = useUnFollowMutation();
   const { user: auth } = useAppSelector((state) => state.auth);
 
   const following = useAppSelector((state) => state.followers.following);
@@ -28,6 +25,7 @@ const ProfileCard = ({ user }: { user: TUser }) => {
   const handleFollow = async () => {
     if (!auth) return;
     try {
+      // the api is designed to follow and unfollow the user from same api, no need to call different api
       const res = await follow(user._id);
       const error = res.error as any;
       if (isError || (error && error.status !== 200)) {
@@ -47,9 +45,9 @@ const ProfileCard = ({ user }: { user: TUser }) => {
       </Avatar>
       <div className="flex flex-col gap-[10px]">
         <h4 className="text-sm font-semibold flex items-center gap-[10px]">
-          <span>
+          <Link href={`/${user._id}`} className="hover:underline">
             {user.firstName} {user.lastName}
-          </span>
+          </Link>
           {user.isPremium ? (
             <OntheGoTooltip message="Verified user">
               <BadgeCheck width={20} className="text-primaryMat" />
@@ -70,11 +68,7 @@ const ProfileCard = ({ user }: { user: TUser }) => {
           <Button size="sm" onClick={handleFollow}>
             <UserPlus className="mr-2 h-4 w-4" />
             {isFollowing ? "Unfollow" : "Follow"}
-            {isLoading || isLoadingUnfollow ? (
-              <ImSpinner2 className="spinner" />
-            ) : (
-              ""
-            )}
+            {isLoading ? <ImSpinner2 className="spinner" /> : ""}
           </Button>
         )}
       </div>

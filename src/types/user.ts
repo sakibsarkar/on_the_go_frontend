@@ -14,3 +14,9 @@ export type TUser = {
     _id: string;
   };
 };
+
+export type TProfileData = Omit<TUser, "role" | "auth"> & {
+  isFollowing: boolean;
+  totalPost: number;
+  totalFollower: number;
+};

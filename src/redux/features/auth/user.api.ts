@@ -1,5 +1,5 @@
 import { api } from "@/redux/api/appSlice";
-import { TUser } from "@/types/user";
+import { TProfileData, TUser } from "@/types/user";
 interface IQueryOptions {
   searchTerm?: string;
   page?: string | number;
@@ -14,6 +14,13 @@ const userRelatedApi = api.injectEndpoints({
         body: payload,
       }),
       invalidatesTags: ["user"],
+    }),
+    getAnotherUserProfileData: builder.query<{ data: TProfileData }, string>({
+      query: (userId) => ({
+        url: `/user/profile/${userId}`,
+        method: "GET",
+      }),
+      providesTags: ["user"],
     }),
     updateUserImage: builder.mutation<{ data: string }, FormData>({
       query: (file) => ({
@@ -41,4 +48,5 @@ export const {
   useUpdateUserInfoMutation,
   useUpdateUserImageMutation,
   useGetAllUserQuery,
+  useGetAnotherUserProfileDataQuery,
 } = userRelatedApi;

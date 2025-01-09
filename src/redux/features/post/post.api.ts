@@ -19,6 +19,22 @@ const postApi = api.injectEndpoints({
       },
       providesTags: ["post"],
     }),
+    getUserProfilePostByUserId: builder.query<
+      { data: IPost[]; totalDoc: number },
+      { query: Record<string, any>; userId: string }
+    >({
+      query: ({ query: payload, userId }) => {
+        const query = Object.keys(payload)
+          .map((key) => `${key}=${payload[key]}`)
+          .join("&");
+        return {
+          url: `/post/get/profile/${userId}?${query}`,
+          method: "GET",
+          keepUnusedDataFor: 0,
+        };
+      },
+      providesTags: ["post"],
+    }),
     getPostById: builder.query<{ data: IPost }, string>({
       query: (id) => {
         return {
@@ -66,4 +82,5 @@ export const {
   useCratePostMutation,
   useGetPostByIdQuery,
   useDeletePostMutation,
+  useGetUserProfilePostByUserIdQuery,
 } = postApi;

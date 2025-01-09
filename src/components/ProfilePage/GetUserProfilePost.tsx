@@ -1,4 +1,6 @@
-import { useGetAllPostQuery } from "@/redux/features/post/post.api";
+"use client";
+
+import { useGetUserProfilePostByUserIdQuery } from "@/redux/features/post/post.api";
 import { IPost } from "@/types/post";
 import { X } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -7,10 +9,13 @@ import PostCard from "../PostCard/PostCard";
 import PostCardSkeleton from "../skeletons/PostCardSkeleton";
 import { Separator } from "../ui/separator";
 
-const DisplayGroupPost = () => {
-  const { groupId } = useParams();
-  const [query, setQuery] = useState({ group: groupId, page: 1, limit: 10 });
-  const { data, isFetching } = useGetAllPostQuery(query);
+const GetUserProfilePost = () => {
+  const { userId } = useParams();
+  const [query, setQuery] = useState({ page: 1, limit: 5 });
+  const { data, isFetching } = useGetUserProfilePostByUserIdQuery({
+    userId: userId as string,
+    query: query,
+  });
 
   const [postData, setPostData] = useState<IPost[]>([]);
 
@@ -22,27 +27,29 @@ const DisplayGroupPost = () => {
   }, [data]);
 
   return (
-    <div className="mt-[15px]">
-      <h3 className="text-[25px] text-primaryTxt font-[700]">Group Post</h3>
-      <Separator className="my-4" />
-      {postData?.map((post) => (
-        <PostCard post={post} key={post._id} groupView={true} />
-      ))}
+    <div className="w-full">
+      <h3 className="text-[25px] text-primaryTxt font-[700]">Profile Post</h3>
+      <Separator className="my-4 bg-input" />
+
       {!isFetching && !postData.length ? (
         <div className="w-full flex items-center justify-center bg-white py-[50px] rounded-[8px]">
-          <h1 className="text-[25px] font-[700] flex items-center flex-col justify-center gap-[15px] text-center max-w-[700px]">
+          <h1 className="text-[25px] font-[700] flex items-center flex-col justify-center gap-[15px]">
             <span className="w-[50px] aspect-square center bg-primaryMat/10 center rounded-full">
               <X className="w-[30px] h-[30px] text-primaryMat" />
             </span>{" "}
-            This Group Has No Post yet or you may not have permission to see
-            this group posts
+            This Profile Has No Post yet
           </h1>
         </div>
       ) : (
         ""
       )}
+
+      {postData?.map((post) => (
+        <PostCard post={post} key={post._id} groupView={true} />
+      ))}
+
       {isFetching && (
-        <div className="flex items-center justify-center flex-col mt-[10px]">
+        <div className="flex items-center justify-center flex-col mt-[10px] w-full">
           <PostCardSkeleton />
           <PostCardSkeleton />
           <PostCardSkeleton />
@@ -62,4 +69,4 @@ const DisplayGroupPost = () => {
   );
 };
 
-export default DisplayGroupPost;
+export default GetUserProfilePost;

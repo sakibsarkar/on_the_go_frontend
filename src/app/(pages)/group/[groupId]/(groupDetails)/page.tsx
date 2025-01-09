@@ -1,7 +1,5 @@
-import GroupDetailsView from "@/views/GroupDetailsView";
-
 const page = () => {
-  return <></>
+  return <></>;
 };
 
 export default page;

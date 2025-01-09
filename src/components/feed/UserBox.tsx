@@ -9,7 +9,7 @@ const UserBox = () => {
 
   return (
     <Link
-      href={"/profile"}
+      href={`/${user._id}`}
       className="flex items-center gap-[12px] p-[5px] hover:bg-primaryMat/5 w-full rounded-[8px]"
     >
       <div className="relative h-12 w-12 center bg-primaryMat/10 rounded-full p-[5px]">
