@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useGetGroupSuggesionsQuery } from "@/redux/features/group/group.api";
 import { FilterX, SearchIcon, Users } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const AllGroupView = () => {
@@ -31,21 +32,29 @@ const AllGroupView = () => {
         travel stories
       </p>
       <Separator className="my-4" />
-      <form
-        onSubmit={handleSubmit}
-        className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden"
-      >
-        <input
-          type="text"
-          placeholder="Search groups"
-          name="search"
-          id="search"
-          className="w-full h-full outline-none bg-transparent border-transparent"
-        />
-        <button className="h-full px-[15px] center bg-primaryMat/20">
-          <SearchIcon className="shrink-0 text-primaryMat" />
-        </button>
-      </form>
+      <div className="w-full flex items-center justify-between">
+        <form
+          onSubmit={handleSubmit}
+          className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden"
+        >
+          <input
+            type="text"
+            placeholder="Search groups"
+            name="search"
+            id="search"
+            className="w-full h-full outline-none bg-transparent border-transparent"
+          />
+          <button className="h-full px-[15px] center bg-primaryMat/20">
+            <SearchIcon className="shrink-0 text-primaryMat" />
+          </button>
+        </form>
+        <Link
+          href="/group/create"
+          className="bg-primaryMat/10 text-primaryMat center gap-[15px] hover:bg-primaryMat hover:text-white px-[15px] py-[8px] rounded-[8px]"
+        >
+          Create Group <Users />
+        </Link>
+      </div>
 
       {!isFetching && !data?.data?.length ? (
         <div className="space-y-2 w-full center flex-col h-[350px]">

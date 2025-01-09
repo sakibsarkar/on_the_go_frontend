@@ -4,27 +4,36 @@ import { IFollower } from "@/types/follwer";
 
 const commentApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getFollwers: builder.query<{ data: IFollower[] }, undefined>({
-      query: () => {
+    getFollwers: builder.query<{ data: IFollower[], totalDoc: number }, Record<string, any>>({
+      query: (query) => {
+        const queryString = Object.keys(query)
+          .map((key) => `${key}=${query[key]}`)
+          .join("&");
         return {
-          url: `/follower/get`,
+          url: `/follower/get?${queryString}`,
           method: "GET",
           keepUnusedDataFor: 0,
         };
       },
       providesTags: ["follower"],
     }),
-    getFollowingList: builder.query<{ data: IFollower[] }, undefined>({
-      query: () => {
+    getFollowingList: builder.query<
+      { data: IFollower[]; totalDoc: number },
+      Record<string, any>
+    >({
+      query: (query) => {
+        const queryString = Object.keys(query)
+          .map((key) => `${key}=${query[key]}`)
+          .join("&");
         return {
-          url: `/follower/get/following`,
+          url: `/follower/get/following?${queryString}`,
           method: "GET",
           keepUnusedDataFor: 0,
         };
       },
       providesTags: ["follower"],
     }),
-    follow: builder.mutation<{ data: IComment[] }, string>({
+    follow: builder.mutation<{ data: IFollower }, string>({
       query: (follower) => {
         return {
           url: `/follower/create`,

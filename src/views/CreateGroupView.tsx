@@ -47,7 +47,7 @@ export default function CreateGroupView() {
       }
       toast.success("Group created successfully");
 
-      router.push(`/groups/${res.data?.data?._id}`);
+      router.push(`/group/${res.data?.data?._id}/post`);
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -76,86 +76,88 @@ export default function CreateGroupView() {
 
   return (
     <div className="container mx-auto py-6">
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex items-center justify-start w-full gap-[15px]"
-      >
-        <Card className="w-[30%]">
-          <CardHeader>
-            <CardTitle>Create New Group</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Group Name</Label>
-              <Input
-                id="name"
-                placeholder="Enter group name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                placeholder="What's your group about?"
-                value={formik.values.description}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="image">Cover Image</Label>
-              <div className="flex items-center gap-4">
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  type="button"
-                  onClick={() =>
-                    document.getElementById("image-upload")?.click()
-                  }
-                >
-                  <Camera className="mr-2 h-4 w-4" />
-                  Upload Image
-                </Button>
-                <input
-                  id="image-upload"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
+      <div className="flex items-center justify-start w-full gap-[15px]">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex items-center justify-start w-[30%] gap-[15px]"
+        >
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle>Create New Group</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Group Name</Label>
+                <Input
+                  id="name"
+                  placeholder="Enter group name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label>Privacy</Label>
-              <Select
-                onValueChange={(value: TGroupPrivacy) =>
-                  formik.setFieldValue("privacy", value)
-                }
-                value={formik.values.privacy}
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  placeholder="What's your group about?"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="image">Cover Image</Label>
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    type="button"
+                    onClick={() =>
+                      document.getElementById("image-upload")?.click()
+                    }
+                  >
+                    <Camera className="mr-2 h-4 w-4" />
+                    Upload Image
+                  </Button>
+                  <input
+                    id="image-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Privacy</Label>
+                <Select
+                  onValueChange={(value: TGroupPrivacy) =>
+                    formik.setFieldValue("privacy", value)
+                  }
+                  value={formik.values.privacy}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Group Privacy" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Group Privacy</SelectLabel>
+                      <SelectItem value="public">Public</SelectItem>
+                      <SelectItem value="private">Private</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button
+                disabled={isLoading}
+                type="submit"
+                className="w-full bg-primaryMat/10 text-primaryMat border-[1px] border-primaryMat/20 hover:bg-primaryMat hover:text-white center gap-[5px]"
               >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Group Privacy" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Group Privacy</SelectLabel>
-                    <SelectItem value="public">Public</SelectItem>
-                    <SelectItem value="private">Private</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <Button
-              disabled={isLoading}
-              type="submit"
-              className="w-full bg-primaryMat/10 text-primaryMat border-[1px] border-primaryMat/20 hover:bg-primaryMat hover:text-white center gap-[5px]"
-            >
-              Create Group {isLoading ? <FaSpinner className="spinner" /> : ""}
-            </Button>
-          </CardContent>
-        </Card>
-
+                Create Group{" "}
+                {isLoading ? <FaSpinner className="spinner" /> : ""}
+              </Button>
+            </CardContent>
+          </Card>
+        </form>
         <Card className="w-[70%]">
           <CardHeader>
             <CardTitle>Group Preview</CardTitle>
@@ -201,7 +203,7 @@ export default function CreateGroupView() {
             </div>
           </CardContent>
         </Card>
-      </form>
+      </div>
     </div>
   );
 }

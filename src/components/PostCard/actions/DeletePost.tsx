@@ -28,18 +28,17 @@ const DeletePost: React.FC<IProps> = ({ id, isOpen, setIsOpen }) => {
   const dispatch = useAppDispatch();
   const handleDeletePost = async () => {
     const toastId = toast.loading("Please wait");
-    const btn = document.getElementById("cancel_comment_dialog");
     try {
       const res = await deletePost(id);
       const error = res.error as any;
       if (isError || (error && error.status !== 200)) {
         toast.error("Something went wrong");
       } else {
-        toast.success("Comment deleted successfully");
+        toast.success("Post deleted successfully");
       }
       toast.dismiss(toastId);
+      setIsOpen(false);
       dispatch(removePost(id));
-      btn?.click();
     } catch (error) {
       toast.dismiss(toastId);
       toast.error("Something went wrong");
@@ -67,7 +66,11 @@ const DeletePost: React.FC<IProps> = ({ id, isOpen, setIsOpen }) => {
             Delete
           </Button>
           <DialogClose asChild>
-            <Button variant="outline" id="cancel_post_dialog">
+            <Button
+              variant="outline"
+              id="cancel_post_dialog"
+              onClick={() => setIsOpen(false)}
+            >
               Cancel
             </Button>
           </DialogClose>

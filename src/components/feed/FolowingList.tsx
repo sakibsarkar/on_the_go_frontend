@@ -9,7 +9,10 @@ import { useEffect } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 const FolowingList = ({ heading = true }: { heading?: boolean }) => {
-  const { data } = useGetFollowingListQuery(undefined);
+  const { data } = useGetFollowingListQuery({
+    page: 1,
+    limit: 10,
+  });
 
   const [unFollow, { isLoading }] = useUnFollowMutation();
 

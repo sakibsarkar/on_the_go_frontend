@@ -85,7 +85,7 @@ const CreatePostModal: React.FC<IProps> = ({ children }) => {
         images,
         categories,
         premium: isPremium,
-        groupId: groupId as string | undefined,
+        group: groupId as string | undefined,
       };
       const { data } = await createPost(payload);
 

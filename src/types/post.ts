@@ -11,7 +11,7 @@ interface IPostReqired {
 
 export interface IPostCreate extends IPostReqired {
   categories: string[];
-  groupId?: string;
+  group?: string;
 }
 
 export interface IPost extends IPostReqired {

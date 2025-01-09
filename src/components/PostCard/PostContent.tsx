@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CardContent, CardHeader } from "@/components/ui/card";
 import { IPost } from "@/types/post";
@@ -5,10 +6,12 @@ import { format, formatDistanceToNow } from "date-fns";
 import { Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 import PostGallery from "./PostGallery";
 import PostOptions from "./PostOptions";
 import { ProfileHoverCard } from "./ProfileCard";
+
 const PostContent = ({
   post,
   groupView,
@@ -16,6 +19,9 @@ const PostContent = ({
   post: IPost;
   groupView?: boolean;
 }) => {
+  const [showFullContent, setShowFullContent] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -37,7 +43,7 @@ const PostContent = ({
           <div className="relative z-[1] flex items-start justify-start gap-[15px]">
             <div className="relative w-[40px] h-[40px] rounded-[8px]">
               <Image
-                src={post.group.image}
+                src={post.group.image || "/images/travelGroup.png"}
                 alt={post.group.name}
                 width={40}
                 height={40}
@@ -99,10 +105,31 @@ const PostContent = ({
         ) : (
           ""
         )}
-        <div
-          dangerouslySetInnerHTML={{ __html: post.content }}
-          className="mb-4 reset-all"
-        />
+
+        <div className="relative">
+          <div
+            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="mb-4 reset-all relative z-[1]"
+            style={{
+              maxHeight: showFullContent ? "auto" : "150px",
+              overflow: "hidden",
+            }}
+            ref={containerRef}
+          />
+
+          {!showFullContent &&
+          containerRef?.current?.scrollHeight &&
+          containerRef?.current?.scrollHeight > 150 ? (
+            <span
+              className="absolute hideGradient center h-[50px] w-full bottom-0 left-0 z-[2] cursor-pointer"
+              onClick={() => setShowFullContent(true)}
+            >
+              read more
+            </span>
+          ) : (
+            ""
+          )}
+        </div>
         <div className="flex justify-start items-center gap-[10px] mb-2">
           {post.categories?.map(({ label }) => (
             <Badge key={post._id + "-" + label} variant="outline">

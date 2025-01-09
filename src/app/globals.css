@@ -193,3 +193,12 @@
   bottom: -7px;
   left: 0;
 }
+
+.hideGradient {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.46262254901960786) 0%,
+    rgba(255, 255, 255, 1) 67%
+  );
+}

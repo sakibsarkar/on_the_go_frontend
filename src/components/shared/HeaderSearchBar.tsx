@@ -1,9 +1,11 @@
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { LeftSidebar } from "../client/LeftSidebar";
 
 const HeaderSearchBar = () => {
+  const path = usePathname();
   return (
     <div className="flex items-center gap-2 absolute left-[80px] z-[2]">
       <LeftSidebar />
@@ -16,18 +18,22 @@ const HeaderSearchBar = () => {
           className="w-[60px] md:flex hidden"
         />
       </Link>
-      <form className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden">
-        <input
-          type="text"
-          placeholder="Search groups"
-          name="search"
-          id="search"
-          className="w-full h-full outline-none bg-transparent border-transparent"
-        />
-        <button className="h-full px-[15px] center bg-primaryMat/20">
-          <SearchIcon className="shrink-0 text-primaryMat" />
-        </button>
-      </form>
+      {path === "/" ? (
+        <form className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden">
+          <input
+            type="text"
+            placeholder="Search groups"
+            name="search"
+            id="search"
+            className="w-full h-full outline-none bg-transparent border-transparent"
+          />
+          <button className="h-full px-[15px] center bg-primaryMat/20">
+            <SearchIcon className="shrink-0 text-primaryMat" />
+          </button>
+        </form>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
