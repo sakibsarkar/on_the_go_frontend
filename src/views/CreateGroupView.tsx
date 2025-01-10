@@ -76,10 +76,10 @@ export default function CreateGroupView() {
 
   return (
     <div className="py-6">
-      <div className="flex items-center justify-start w-full gap-[15px]">
+      <div className="flex items-center flex-col-reverse md:flex-row justify-start w-full gap-[15px]">
         <form
           onSubmit={formik.handleSubmit}
-          className="flex items-center justify-start w-[30%] gap-[15px]"
+          className="flex items-center justify-start w-full md:w-[50%] xl:w-[30%] gap-[15px]"
         >
           <Card className="w-full">
             <CardHeader>
@@ -158,7 +158,7 @@ export default function CreateGroupView() {
             </CardContent>
           </Card>
         </form>
-        <Card className="w-[70%]">
+        <Card className="w-full md:w-[50%] xl:w-[70%]">
           <CardHeader>
             <CardTitle>Group Preview</CardTitle>
           </CardHeader>
