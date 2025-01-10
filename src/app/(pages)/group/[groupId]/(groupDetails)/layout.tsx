@@ -2,14 +2,20 @@
 import GroupJoin from "@/components/GroupDetails/GroupJoin";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
-import { useGetGroupDetailsByIdQuery } from "@/redux/features/group/group.api";
+import {
+  useGetGroupDetailsByIdQuery,
+  useUpdateGroupByIdMutation,
+} from "@/redux/features/group/group.api";
 import { setGroupData } from "@/redux/features/group/group.slice";
+import { useAppSelector } from "@/redux/hook";
+import { upLoadSingeImage } from "@/utils/uploadSingleImage";
 import { format } from "date-fns";
 import { Calendar, Camera, Globe, Lock, Users } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 const groupNavigation = [
   {
@@ -29,7 +35,10 @@ const groupNavigation = [
 const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
   const { groupId } = useParams();
   const { data, isLoading } = useGetGroupDetailsByIdQuery(groupId as string);
+  const [updateGroup] = useUpdateGroupByIdMutation();
   const dispatch = useDispatch();
+
+  const { token } = useAppSelector((state) => state.auth);
 
   const path = usePathname();
 
@@ -46,6 +55,30 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
   const group = data?.data?.group;
   const member = data?.data?.member;
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return;
+    }
+    const toastId = toast.loading("Uploading image...");
+    try {
+      const { data } = await upLoadSingeImage(file, token || "");
+
+      if (data) {
+        const payload = {
+          image: data,
+        };
+        await updateGroup({ groupId: groupId as string, payload });
+        toast.success("Image uploaded successfully");
+      }
+      toast.dismiss(toastId);
+      toast.success("Image uploaded successfully");
+    } catch (error) {
+      toast.dismiss(toastId);
+      console.log(error);
+    }
+  };
+
   return (
     <div className="container mx-auto py-6">
       <div className="overflow-hidden  text-card-foreground">
@@ -55,22 +88,28 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
             alt={group?.name}
             className="h-[300px] w-full object-cover"
           />
-          {data?.data?.member?.role === "owner" && (
-            <Button
-              variant="secondary"
-              className="absolute bottom-4 right-4"
-              onClick={() => document.getElementById("cover-upload")?.click()}
-            >
-              <Camera className="mr-2 h-4 w-4" />
-              Change Cover
-            </Button>
+          {data?.data?.member?.role === "owner" ||
+          data?.data?.member?.role === "admin" ? (
+            <>
+              <Button
+                variant="secondary"
+                className="absolute bottom-4 right-4"
+                onClick={() => document.getElementById("cover-upload")?.click()}
+              >
+                <Camera className="mr-2 h-4 w-4" />
+                Change Cover
+              </Button>
+              <input
+                id="cover-upload"
+                onChange={handleImageUpload}
+                type="file"
+                accept="image/*"
+                className="hidden"
+              />
+            </>
+          ) : (
+            ""
           )}
-          <input
-            id="cover-upload"
-            type="file"
-            accept="image/*"
-            className="hidden"
-          />
         </div>
 
         <div className="py-6 bg-white px-6">

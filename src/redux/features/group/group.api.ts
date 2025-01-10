@@ -32,6 +32,21 @@ const groupApi = api.injectEndpoints({
       },
       providesTags: ["group"],
     }),
+    getGroupMembers: builder.query<
+      { data: IGroupMember[]; totalDoc: number },
+      { groupId: string; query: Record<string, any> }
+    >({
+      query: ({ query, groupId }) => {
+        const queryString = Object.keys(query)
+          .map((key) => `${key}=${query[key]}`)
+          .join("&");
+        return {
+          url: `/group/get-members/${groupId}?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["group"],
+    }),
     getGroupDetailsById: builder.query<
       { data: { group: IGroup; member: IGroupMember } },
       string
@@ -59,11 +74,26 @@ const groupApi = api.injectEndpoints({
       },
       providesTags: ["group"],
     }),
+    updateGroupById: builder.mutation<
+      { data: IGroup[]; totalDoc: number },
+      { payload: Partial<IGroup>; groupId: string }
+    >({
+      query: ({ payload, groupId }) => {
+        return {
+          url: `/group//update/${groupId}`,
+          method: "PUT",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["group"],
+    }),
   }),
 });
 export const {
   useCreateGroupMutation,
+  useUpdateGroupByIdMutation,
   useGetGroupSuggesionsQuery,
+  useGetGroupMembersQuery,
   useGetUsersGroupsQuery,
   useGetGroupDetailsByIdQuery,
 } = groupApi;

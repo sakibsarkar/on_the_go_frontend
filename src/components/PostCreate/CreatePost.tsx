@@ -57,7 +57,7 @@ const CreatePostModal: React.FC<IProps> = ({ children }) => {
     if (files && files[0]) {
       const file = files[0];
       setImageLoading(true);
-      const { data } = await upLoadSingeImage(file, token);
+      const {data} = await upLoadSingeImage(file, token);
       setImages((prev) => [...prev, data]);
       setImageLoading(false);
     }

@@ -17,7 +17,6 @@ import { MessageCircle } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import CommentCard from "../commentCard/CommentCard";
-import OntheGoPagination from "../shared/OntheGoPagination";
 import CommentCardSkeleton from "../skeletons/CommentCardSkeleton";
 import PostCardSkeleton from "../skeletons/PostCardSkeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -27,6 +26,7 @@ import { Skeleton } from "../ui/skeleton";
 import { Textarea } from "../ui/textarea";
 import PostContent from "./PostContent";
 import PostReaction from "./actions/PostReaction";
+import OntheGoPagination from "../shared/OntheGoPagination";
 
 interface IPorps {
   post: IPost;
@@ -164,6 +164,7 @@ const PostModal: React.FC<IPorps> = ({ post, trigger }) => {
 
           <DialogFooter className="mt-4 flex justify-start w-full">
             <OntheGoPagination
+              onPageChange={setPage}
               totalDoc={data?.totalDoc || 0}
               className="w-fit"
             />
