@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/images/logo.png" sizes="any" />
-      <body className={`${quickSand.className} bg-[#f5f5f5]`}>
+      <body className={`${quickSand.className} bgSmooth`}>
         <ProviderContainer>{children}</ProviderContainer>
       </body>
     </html>

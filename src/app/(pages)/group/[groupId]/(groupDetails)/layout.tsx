@@ -81,7 +81,7 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="w-full py-6">
       <div className="overflow-hidden  text-card-foreground">
         <div className="relative">
           <img
@@ -114,10 +114,10 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <div className="py-6 bg-white px-6">
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between flex-col md:flex-row gap-[15px]">
             <div>
               <h1 className="text-3xl font-bold">{group?.name}</h1>
-              <div className="mt-2 flex items-center gap-2 text-muted-foreground">
+              <div className="mt-2 flex items-center gap-1 sm:gap-2 text-muted-foreground text-[12px] sm:text-[14px]">
                 {group?.privacy === "public" ? (
                   <Globe className="h-4 w-4" />
                 ) : (
@@ -133,7 +133,6 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
                 <span>·</span>
                 <Calendar className="h-4 w-4" />
                 <span>
-                  Created{" "}
                   {format(group?.createdAt || new Date(), "MMM dd, yyyy")}
                 </span>
               </div>

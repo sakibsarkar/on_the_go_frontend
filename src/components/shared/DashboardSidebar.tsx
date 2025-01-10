@@ -9,6 +9,7 @@ import { SetStateAction, useEffect } from "react";
 import { adminLinks } from "../../routes";
 import { Button } from "../ui/button";
 import { DashboardNav } from "./DashboardNav";
+import Logout from "./Logout";
 
 type SidebarProps = {
   className?: string;
@@ -21,7 +22,6 @@ export default function Sidebar({
   isOpen,
   setIsopen,
 }: SidebarProps) {
-  const dispatch = useAppDispatch();
 
   // outside click hide the drawer
   useEffect(() => {
@@ -61,10 +61,7 @@ export default function Sidebar({
     rotate: isOpen ? "0deg" : "180deg",
   };
 
-  const hanldleLogout = () => {
-    Cookies.remove("refreshToken");
-    dispatch(logout(undefined));
-  };
+
   const handleCloseBar = () => {
     const width = window.screen.width;
 
@@ -109,13 +106,7 @@ export default function Sidebar({
           </div>
         </div>
       </div>
-      <Button
-        onClick={hanldleLogout}
-        className="w-[90%] mx-auto"
-        variant={"destructive"}
-      >
-        Logout
-      </Button>
+      <Logout/>
     </aside>
   );
 }

@@ -2,6 +2,7 @@
 import GetUserProfilePost from "@/components/ProfilePage/GetUserProfilePost";
 import ProfileEditDialog from "@/components/ProfilePage/ProfileEditDialog";
 import ProfileFollowToggle from "@/components/ProfilePage/ProfileFollowToggle";
+import PostCreateBox from "@/components/shared/PostCreateBox";
 import ProfileLoadingSkeleton from "@/components/skeletons/ProfileLoadingSkeleton";
 import { Separator } from "@/components/ui/separator";
 import { useGetAnotherUserProfileDataQuery } from "@/redux/features/auth/user.api";
@@ -36,9 +37,9 @@ const ProfilePageView = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="w-full flex items-start justify-between px-[15px] bg-white">
-        <div className="flex items-end justify-start gap-[25px] relative top-[-50px]">
-          <div className="w-[150px] aspect-square bg-primaryMat p-[5px] rounded-full center relative overflow-hidden">
+      <div className="w-full flex items-start justify-between px-[15px] pb-[15px] bg-white">
+        <div className="flex items-start justify-start gap-[25px] relative">
+          <div className="w-[80px] md:w-[100px] lg:w-[150px] aspect-square bg-primaryMat p-[5px] rounded-full center relative overflow-hidden top-[-20px] md:top-[-30px] lg:top-[-50px]">
             <Image
               className="w-full h-full rounded-full object-contain absolute top-0 left-0 z-[2]"
               src={"/images/avatar.jpg"}
@@ -55,23 +56,23 @@ const ProfilePageView = () => {
             />
           </div>
           <div className="flex flex-col gap-[5px]">
-            <h1 className="text-[25px] font-bold text-primaryTxt">
+            <h1 className="text-[18px] lg:text-[25px] font-bold text-primaryTxt">
               {data?.data?.firstName} {data?.data?.lastName}
             </h1>
 
-            <div className="flex items-start justify-start  gap-[10px]">
-              <p className="text-primaryTxt text-[14px] mb-[8px]">
+            <div className="flex items-start justify-start  gap-[3px] md:gap-[10px] flex-row flex-wrap">
+              <p className="text-primaryTxt text-[14px] sm:mb-[8px]">
                 Joined on{" "}
                 <span className="font-[700]">
                   {format(data?.data?.createdAt || new Date(), "MMM dd, yyyy")}
                 </span>
               </p>
               <p className="center gap-[5px] font-[700] text-[14px] text-primaryTxt/70">
-                |{" "}
+                <span className="">|</span>
                 <span id={"follower_count_profile"}>
                   {data?.data?.totalFollower || 0}
                 </span>{" "}
-                followers |
+                followers <span>|</span>
               </p>
               <p className="center gap-[5px] font-[700] text-[14px] text-primaryTxt/70">
                 {data?.data?.totalPost || 0} posts
@@ -93,8 +94,8 @@ const ProfilePageView = () => {
 
       <Separator className="mt-[15px] mb-[25px] bg-input" />
 
-      <div className="flex items-start justify-start gap-[15px]">
-        <div className="space-y-6  bg-white p-[15px] rounded-[18px] w-[600px]">
+      <div className="flex items-start justify-start gap-[15px] flex-col lg:flex-row">
+        <div className="space-y-6  bg-white p-[15px] rounded-[18px] shrink-0 w-full lg:w-[440px]">
           <div className="mt-2 flex-col gap-[15px]">
             <p className="text-lg font-semibold">Profile Intro</p>
             <p className="text-muted-foreground text-[14px]">
@@ -131,7 +132,10 @@ const ProfilePageView = () => {
             </p>
           </div>
         </div>
-        <GetUserProfilePost />
+        <div className="flex flex-col gap-[25px] w-full">
+          <PostCreateBox />
+          <GetUserProfilePost />
+        </div>
       </div>
     </div>
   );

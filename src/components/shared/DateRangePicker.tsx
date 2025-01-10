@@ -1,6 +1,6 @@
 "use client";
 
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import * as React from "react";
 import { DateRange } from "react-day-picker";
 
@@ -20,10 +20,7 @@ interface IProps {
 }
 
 const DateRangePicker: React.FC<IProps> = ({ className, onChange }) => {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 20),
-  });
+  const [date, setDate] = React.useState<DateRange | undefined>(undefined);
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -33,7 +30,7 @@ const DateRangePicker: React.FC<IProps> = ({ className, onChange }) => {
             id="date"
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "w-full justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
           >

@@ -1,7 +1,7 @@
 import { IconType } from "react-icons";
 import { BsFileEarmarkPost } from "react-icons/bs";
 import { CiUser, CiViewList } from "react-icons/ci";
-import { GrServices } from "react-icons/gr";
+import { GrServices, GrUserSettings } from "react-icons/gr";
 export interface NavItem {
   href: string;
   title: string;
@@ -29,5 +29,10 @@ export const adminLinks: NavItem[] = [
     href: "/dashboard/manage-categories",
     Icon: BsFileEarmarkPost,
     title: "Manage Categories",
+  },
+  {
+    href: "/dashboard/profile-setting",
+    Icon: GrUserSettings,
+    title: "Profile Setting",
   },
 ];

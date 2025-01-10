@@ -14,12 +14,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { IoMenu } from "react-icons/io5";
+import Logout from "./Logout";
 import ThemeChanger from "./TheamChanger";
 
 const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
   const { user } = useAppSelector((state) => state.auth);
   return (
-    <div className="w-full flex items-center justify-between px-[20px]  py-[10px] border-b-[1px] border-muted shrink-0">
+    <div className="w-full flex items-center justify-between px-[20px]  py-[10px] shrink-0 bg-card border-b-[1px] border-input">
       <Image
         width={80}
         height={80}
@@ -55,13 +56,18 @@ const DashboardHeader: React.FC<ISideBarState> = ({ setIsOpen }) => {
               <Link href={"/"}>Home</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href={"/dashboard/admin/manage-bookings"}>
-                Booking Manage
-              </Link>
+              <Link href={"/dashboard/admin/community-post"}>Manage Posts</Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link href={"/"}>Setting</Link>
+              <Link href={"/dashboard/profile-setting"}>Profile Setting</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Logout>
+                <button className="w-full flex bg-destructive py-[5px] rounded-[5px] text-white center mt-[5px]">
+                  Logout
+                </button>
+              </Logout>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

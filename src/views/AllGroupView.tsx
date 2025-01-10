@@ -32,10 +32,10 @@ const AllGroupView = () => {
         travel stories
       </p>
       <Separator className="my-4" />
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-start sm:items-center justify-between gap-[15px] flex-col sm:flex-row my-[15px]">
         <form
           onSubmit={handleSubmit}
-          className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden"
+          className="w-[90%] sm:w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] flex items-center justify-between overflow-hidden"
         >
           <input
             type="text"

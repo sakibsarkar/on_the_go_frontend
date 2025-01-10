@@ -75,7 +75,7 @@ export default function CreateGroupView() {
   };
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="py-6">
       <div className="flex items-center justify-start w-full gap-[15px]">
         <form
           onSubmit={formik.handleSubmit}

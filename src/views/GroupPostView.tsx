@@ -8,12 +8,12 @@ const GroupPostView = () => {
   const { group } = useAppSelector((state) => state.group);
 
   return (
-    <div className="flex items-start justify-start gap-[15px]">
+    <div className="flex items-start justify-start flex-col-reverse lg:flex-row gap-[15px]">
       <div className="w-full">
         <PostCreateBox />
         <DisplayGroupPost />
       </div>
-      <div className="space-y-6  bg-white p-[15px] rounded-[18px] w-[600px]">
+      <div className="space-y-6  bg-white p-[15px] rounded-[18px] w-full lg:w-[440px] shrink-0">
         <div>
           <h2 className="text-lg font-semibold">About this group</h2>
           <p className="mt-2 text-primaryTxt">{group?.description}</p>

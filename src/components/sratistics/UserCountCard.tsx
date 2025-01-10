@@ -9,15 +9,15 @@ interface IProps {
 
 const UserCountCard: React.FC<IProps> = ({ label, value, icon: Icon }) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-primaryMat/10">
       <CardHeader>
-        <CardTitle className="flex items-start justify-between">
+        <CardTitle className="flex items-start justify-between text-primaryMat flex-wrap-reverse gap-[15px]">
           {label}
-          <Icon className="w-4 h-4" />
+          <Icon className="w-5 h-5" />
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-[20px] font-[400]">{value}</p>
+        <p className="text-[20px] font-[400] text-primaryMat">{value}</p>
       </CardContent>
     </Card>
   );
