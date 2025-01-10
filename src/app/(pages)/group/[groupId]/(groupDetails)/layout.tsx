@@ -1,4 +1,5 @@
 "use client";
+import GroupEdit from "@/components/GroupDetails/GroupEdit";
 import GroupJoin from "@/components/GroupDetails/GroupJoin";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
@@ -138,8 +139,11 @@ const GroupDetailsLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
 
-            {member?.role === "owner" && (
-              <Button variant="outline">Manage Group</Button>
+            {data?.data?.member?.role === "owner" ||
+            data?.data?.member?.role === "admin" ? (
+              <GroupEdit />
+            ) : (
+              ""
             )}
 
             {!member && <GroupJoin groupId={groupId as string} />}

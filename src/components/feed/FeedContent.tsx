@@ -62,7 +62,7 @@ const FeedContent = () => {
 
   if (isLoading)
     return (
-      <div className="w-[680px] shrink-0 h-full overflow-y-auto overflow-x-hidden smoothBar">
+      <div className="w-[100%] md:w-full lg:w-[50%] xl:w-[680px] shrink-0 h-full overflow-y-auto overflow-x-hidden smoothBar">
         {Skeletons}
       </div>
     );
@@ -71,7 +71,7 @@ const FeedContent = () => {
   const more = (data?.totalDoc || 0) > posts.length ? true : false;
 
   return (
-    <div className="h-full w-[680px] shrink-0 overflow-y-auto overflow-x-hidden smoothBar">
+    <div className="h-full w-[100%] md:w-full lg:w-[50%] xl:w-[680px] shrink-0 overflow-y-auto overflow-x-hidden smoothBar">
       <div className="mb-[25px]">
         <PostCreateBox />
       </div>

@@ -41,8 +41,8 @@ const MyGroups = () => {
                   className="w-full h-full object-cover"
                 />
               </span>
-              <span className="text-[14px] font-[600] text-primaryTxt">
-                {group.name || "nai vai"}
+              <span className="text-[14px] font-[600] text-primaryTxt line-clamp-1">
+                {group.name || "N/A"}
               </span>
             </Link>
           ))}

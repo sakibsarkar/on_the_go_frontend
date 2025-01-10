@@ -18,7 +18,7 @@
   }
 
   .layout_container {
-    @apply max-w-[1800px] mx-auto px-[10px] sm:px-[20px] md:px-[80px];
+    @apply max-w-[1800px] mx-auto px-[10px] sm:px-[20px] 2xl:px-[80px];
   }
 }
 

@@ -7,7 +7,7 @@ import { LeftSidebar } from "../client/LeftSidebar";
 const HeaderSearchBar = () => {
   const path = usePathname();
   return (
-    <div className="flex items-center gap-2 absolute left-[80px] z-[2]">
+    <div className="flex items-center gap-2 md:absolute left-[10px] sm:left-[20px] 2xl:left-[80px] z-[2]">
       <LeftSidebar />
       <Link href={"/"} className="text-lg font-bold">
         <Image
@@ -19,7 +19,7 @@ const HeaderSearchBar = () => {
         />
       </Link>
       {path === "/" ? (
-        <form className="w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] flex items-center justify-between overflow-hidden">
+        <form className="w-[200px] xl:w-[350px] h-[40px] border-[1px] border-input rounded-full pl-[10px] my-[15px] hidden md:flex items-center justify-between overflow-hidden">
           <input
             type="text"
             placeholder="Search groups"

@@ -29,7 +29,7 @@ const PostCreateBox = () => {
               </CreatePostModal>
             </div>
             <Separator />
-            <div className="flex items-center gap-2 justify-between">
+            <div className="hidden items-center gap-2 justify-between md:flex">
               <CreatePostModal>
                 <button className="py-[10px] w-full hover:bg-primaryMat/5 center gap-[5px] text-[16px] font-[500]">
                   <Image

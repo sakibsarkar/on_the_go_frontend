@@ -2,46 +2,46 @@
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { navLinks } from "@/utils/navLinks";
 import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-
+import { useState } from "react";
+import GroupSuggestion from "../feed/GroupSuggestion";
+import MyGroups from "../feed/MyGroups";
+import ShortCuts from "../feed/ShortCuts";
+import { Separator } from "../ui/separator";
 export function LeftSidebar() {
-  const location = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="block lg:hidden">
-      <Sheet>
+    <div className="block md:hidden">
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Menu />
         </SheetTrigger>
-        <SheetContent side="left" className="bg-white">
+        <SheetContent side="left" className="bg-white overflow-auto">
           <SheetHeader>
-            <SheetTitle>Menu</SheetTitle>
-            <SheetDescription>Choose your route</SheetDescription>
+            <Link href={"/"} className="text-lg font-bold">
+              <Image
+                width={40}
+                height={40}
+                src="/images/logo.png"
+                alt="logo"
+                className="w-[40px]"
+              />
+            </Link>
           </SheetHeader>
-          <div className="flex flex-col gap-2 py-5">
-            {navLinks.map((nav) => (
-              <SheetClose key={nav.path} asChild>
-                <Link
-                  href={nav.path}
-                  className={`text-slate-700 hover:text-green-500 ${
-                    location === nav.path && "font-extrabold text-green-600"
-                  }`}
-                >
-                  {nav.label}
-                </Link>
-              </SheetClose>
-            ))}
+
+          <div className="w-full" onClick={() => setIsOpen(false)}>
+            <Separator className="my-5" />
+            <ShortCuts />
+            <MyGroups />
+            <Separator className="my-5" />
+            <GroupSuggestion />
           </div>
         </SheetContent>
       </Sheet>

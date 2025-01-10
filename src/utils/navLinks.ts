@@ -7,6 +7,11 @@ export const shortcutsLinks = [
     iconUrl: "/icons/home.svg",
   },
   {
+    path: "/profile/settings",
+    label: "Settings",
+    iconUrl: "/icons/setting.svg",
+  },
+  {
     path: "/group",
     label: "Explore Groups",
     iconUrl: "/icons/group.svg",
